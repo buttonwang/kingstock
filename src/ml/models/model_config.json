@@ -1,0 +1,13 @@
+{
+  "best_threshold": 0.41164978601592367,
+  "score_ml_max": 15,
+  "model_version": 2,
+  "models": [
+    "xgb_classifier",
+    "lgb_classifier",
+    "xgb_regressor",
+    "lgb_regressor",
+    "meta_classifier",
+    "meta_regressor"
+  ]
+}

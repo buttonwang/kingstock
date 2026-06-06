@@ -1,0 +1,41 @@
+schema_version: 1
+module_path: ""
+title: A股智能选股系统
+scope:
+    - config/
+    - src/
+    - main.py
+    - requirements.txt
+    - 手工选股.md
+    - .qoder\plans\A股智能选股系统_dc42e6b5.md
+    - config\__init__.py
+    - config\settings.py
+    - data\db\.gitkeep
+    - data\db\stock.db
+    - data\logs\data_fetcher.log
+    - data\logs\finance_filter.log
+    - data\logs\kdj_filter.log
+    - data\logs\macd_filter.log
+    - data\logs\sector_filter.log
+    - data\logs\stock_selector.log
+    - data\logs\zjtj_filter.log
+    - src\__init__.py
+    - src\data_fetcher.py
+    - src\filters\__init__.py
+    - src\filters\finance_filter.py
+    - src\filters\kdj_filter.py
+    - src\filters\macd_filter.py
+    - src\filters\sector_filter.py
+    - src\filters\zjtj_filter.py
+    - src\indicators\__init__.py
+    - src\indicators\kdj.py
+    - src\indicators\macd.py
+    - src\indicators\rps.py
+    - src\indicators\zjtj.py
+    - src\stock_selector.py
+    - src\utils.py
+    - 手工选股\000608.png
+    - 需求.md
+source_files: []
+depends_on: []
+related_to: []

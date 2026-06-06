@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>回测报告 2026-01-01 ~ 2026-06-01</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #333; }
+.header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 40px 30px; text-align: center; }
+.header h1 { font-size: 28px; margin-bottom: 8px; }
+.header p { opacity: 0.8; font-size: 14px; }
+.summary-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 24px 30px; max-width: 1400px; margin: 0 auto; }
+.card { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card .num { font-size: 32px; font-weight: 700; color: #1a1a2e; }
+.card .label { font-size: 13px; color: #888; margin-top: 4px; }
+.card .sub { font-size: 11px; color: #aaa; margin-top: 2px; }
+.section { max-width: 1400px; margin: 20px auto; padding: 0 30px; }
+.section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid #0f3460; }
+.chart-container { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; }
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { background: #f8f9fa; padding: 10px 12px; text-align: center; font-weight: 600; border-bottom: 2px solid #dee2e6; }
+td { padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee; }
+tr:hover td { background: #f8f9ff; }
+.pos { color: #e74c3c; }
+.neg { color: #27ae60; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+.badge-green { background: #d4edda; color: #155724; }
+.badge-red { background: #f8d7da; color: #721c24; }
+@media (max-width: 768px) { .chart-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>📊 选股逻辑回测报告</h1>
+<p>回测区间: 2026-01-01 ~ 2026-06-01 · 306 条信号 · 212 只股票 · 82 个交易日</p>
+<p style="margin-top:6px;font-size:13px;opacity:0.6;">选股条件: MACD金叉 ∩ ZJTJ控盘信号 + KDJ辅助验证</p>
+</div>
+
+<div class="summary-cards">
+
+<div class="card"><div class="num">306</div><div class="label">总信号数</div></div>
+<div class="card"><div class="num">212</div><div class="label">入选股票</div></div>
+<div class="card"><div class="num">82</div><div class="label">交易日数</div></div>
+<div class="card"><div class="num" style="color:#e74c3c;">+1.21%</div><div class="label">2日均涨幅</div><div class="sub">vs 基准 -0.06%</div></div>
+<div class="card"><div class="num" style="color:#e74c3c;">+7.82%</div><div class="label">30日均涨幅</div><div class="sub">vs 基准 +2.39%</div></div>
+<div class="card"><div class="num" style="color:#e74c3c;">+9.36%</div><div class="label">60日均涨幅</div><div class="sub">vs 基准 +6.88%</div></div>
+
+</div>
+
+<!-- 各持有期对比 -->
+<div class="section">
+<div class="section-title">各持有期收益对比</div>
+<div class="chart-container">
+<table>
+<thead><tr>
+<th>持有期</th><th>信号数</th><th>均涨幅</th><th>中位数</th><th>胜率</th><th>最大收益</th><th>最小收益</th><th>标准差</th><th>基准均涨</th><th>跑赢基准</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>2日</strong></td>
+<td>304</td>
+<td class="pos">+1.21%</td>
+<td>+0.71%</td>
+<td>54.3%</td>
+<td class="pos">+20.99%</td>
+<td class="neg">-19.00%</td>
+<td>6.93%</td>
+<td>-0.06%</td>
+<td><span class="badge badge-green">51.0%</span></td>
+</tr><tr>
+<td><strong>10日</strong></td>
+<td>277</td>
+<td class="pos">+2.72%</td>
+<td>+0.78%</td>
+<td>50.9%</td>
+<td class="pos">+86.81%</td>
+<td class="neg">-22.10%</td>
+<td>15.26%</td>
+<td>+0.84%</td>
+<td><span class="badge badge-red">48.4%</span></td>
+</tr><tr>
+<td><strong>30日</strong></td>
+<td>228</td>
+<td class="pos">+7.82%</td>
+<td>-0.79%</td>
+<td>48.2%</td>
+<td class="pos">+133.73%</td>
+<td class="neg">-48.59%</td>
+<td>30.05%</td>
+<td>+2.39%</td>
+<td><span class="badge badge-red">43.4%</span></td>
+</tr><tr>
+<td><strong>60日</strong></td>
+<td>140</td>
+<td class="pos">+9.36%</td>
+<td>-2.82%</td>
+<td>46.4%</td>
+<td class="pos">+162.63%</td>
+<td class="neg">-56.67%</td>
+<td>39.24%</td>
+<td>+6.88%</td>
+<td><span class="badge badge-red">40.7%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- 图表行 -->
+<div class="section">
+<div class="chart-row">
+<div class="chart-container"><canvas id="chart_ret"></canvas></div>
+<div class="chart-container"><canvas id="chart_winrate"></canvas></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">每日策略收益 vs 市场基准（2日持有期）</div>
+<div class="chart-container"><canvas id="chart_daily"></canvas></div>
+</div>
+
+<div class="section">
+<div class="section-title">收益分布</div>
+<div class="chart-row">
+<div class="chart-container"><canvas id="hist_2d"></canvas></div>
+<div class="chart-container"><canvas id="hist_10d"></canvas></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">月度表现</div>
+<div class="chart-container"><canvas id="chart_monthly"></canvas></div>
+</div>
+
+<div class="section">
+<div class="section-title">信号频率 TOP 20 股票</div>
+<div class="chart-container">
+<div style="overflow-x:auto;">
+<table>
+<thead><tr><th>#</th><th>代码</th><th>名称</th><th>信号次数</th><th>2日均涨</th><th>10日均涨</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>300184</td><td>力源信息</td><td><strong>7</strong></td><td class="neg">-3.83%</td><td class="pos">+7.35%</td></tr><tr><td>2</td><td>301419</td><td>阿莱德</td><td><strong>5</strong></td><td class="pos">+0.42%</td><td class="pos">+2.21%</td></tr><tr><td>3</td><td>301182</td><td>凯旺科技</td><td><strong>4</strong></td><td class="pos">+5.40%</td><td class="pos">+6.25%</td></tr><tr><td>4</td><td>688519</td><td>南亚新材</td><td><strong>4</strong></td><td class="pos">+3.18%</td><td class="pos">+7.70%</td></tr><tr><td>5</td><td>603311</td><td>金海高科</td><td><strong>4</strong></td><td class="neg">-0.31%</td><td class="pos">+4.02%</td></tr><tr><td>6</td><td>300179</td><td>四方达</td><td><strong>3</strong></td><td class="neg">-0.62%</td><td class="pos">+13.68%</td></tr><tr><td>7</td><td>002579</td><td>中京电子</td><td><strong>3</strong></td><td class="pos">+9.85%</td><td class="pos">+4.42%</td></tr><tr><td>8</td><td>605589</td><td>圣泉集团</td><td><strong>3</strong></td><td class="pos">+1.96%</td><td class="pos">+9.26%</td></tr><tr><td>9</td><td>002386</td><td>天原股份</td><td><strong>3</strong></td><td class="neg">-0.26%</td><td class="neg">-8.10%</td></tr><tr><td>10</td><td>600459</td><td>贵研铂业</td><td><strong>3</strong></td><td class="neg">-0.89%</td><td class="neg">-5.61%</td></tr><tr><td>11</td><td>600869</td><td>远东股份</td><td><strong>3</strong></td><td class="neg">-1.04%</td><td class="pos">+9.55%</td></tr><tr><td>12</td><td>600522</td><td>中天科技</td><td><strong>3</strong></td><td class="pos">+3.11%</td><td class="pos">+4.77%</td></tr><tr><td>13</td><td>300975</td><td>商络电子</td><td><strong>3</strong></td><td class="pos">+6.80%</td><td class="pos">+4.25%</td></tr><tr><td>14</td><td>301312</td><td>智立方</td><td><strong>3</strong></td><td class="neg">-4.05%</td><td class="pos">+7.53%</td></tr><tr><td>15</td><td>301338</td><td>凯格精机</td><td><strong>3</strong></td><td class="pos">+6.15%</td><td class="pos">+20.69%</td></tr><tr><td>16</td><td>600105</td><td>永鼎股份</td><td><strong>3</strong></td><td class="pos">+3.18%</td><td class="pos">+5.50%</td></tr><tr><td>17</td><td>600378</td><td>昊华科技</td><td><strong>3</strong></td><td class="neg">-1.08%</td><td class="neg">-1.13%</td></tr><tr><td>18</td><td>001287</td><td>中电港</td><td><strong>3</strong></td><td class="pos">+4.24%</td><td class="neg">-1.97%</td></tr><tr><td>19</td><td>002429</td><td>兆驰股份</td><td><strong>3</strong></td><td class="neg">-3.69%</td><td class="neg">-2.97%</td></tr><tr><td>20</td><td>002897</td><td>意华股份</td><td><strong>3</strong></td><td class="neg">-3.27%</td><td class="pos">+7.97%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<script>
+Chart.defaults.font.family = "'Microsoft YaHei', sans-serif";
+const labels = ['2日', '10日', '30日', '60日'];
+
+const stats = [{"\u6301\u6709\u671f": "2\u65e5", "\u4fe1\u53f7\u6570": 304, "\u5747\u6da8\u5e45": "+1.21%", "\u4e2d\u4f4d\u6570": "+0.71%", "\u80dc\u7387": "54.3%", "\u6700\u5927\u6536\u76ca": "+20.99%", "\u6700\u5c0f\u6536\u76ca": "-19.00%", "\u6807\u51c6\u5dee": "6.93%", "\u57fa\u51c6\u5747\u6da8": "-0.06%", "\u8dd1\u8d62\u57fa\u51c6": "51.0%"}, {"\u6301\u6709\u671f": "10\u65e5", "\u4fe1\u53f7\u6570": 277, "\u5747\u6da8\u5e45": "+2.72%", "\u4e2d\u4f4d\u6570": "+0.78%", "\u80dc\u7387": "50.9%", "\u6700\u5927\u6536\u76ca": "+86.81%", "\u6700\u5c0f\u6536\u76ca": "-22.10%", "\u6807\u51c6\u5dee": "15.26%", "\u57fa\u51c6\u5747\u6da8": "+0.84%", "\u8dd1\u8d62\u57fa\u51c6": "48.4%"}, {"\u6301\u6709\u671f": "30\u65e5", "\u4fe1\u53f7\u6570": 228, "\u5747\u6da8\u5e45": "+7.82%", "\u4e2d\u4f4d\u6570": "-0.79%", "\u80dc\u7387": "48.2%", "\u6700\u5927\u6536\u76ca": "+133.73%", "\u6700\u5c0f\u6536\u76ca": "-48.59%", "\u6807\u51c6\u5dee": "30.05%", "\u57fa\u51c6\u5747\u6da8": "+2.39%", "\u8dd1\u8d62\u57fa\u51c6": "43.4%"}, {"\u6301\u6709\u671f": "60\u65e5", "\u4fe1\u53f7\u6570": 140, "\u5747\u6da8\u5e45": "+9.36%", "\u4e2d\u4f4d\u6570": "-2.82%", "\u80dc\u7387": "46.4%", "\u6700\u5927\u6536\u76ca": "+162.63%", "\u6700\u5c0f\u6536\u76ca": "-56.67%", "\u6807\u51c6\u5dee": "39.24%", "\u57fa\u51c6\u5747\u6da8": "+6.88%", "\u8dd1\u8d62\u57fa\u51c6": "40.7%"}];
+const avgRets = stats.map(r => parseFloat(r['均涨幅']));
+const benchRets = stats.map(r => parseFloat(r['基准均涨']));
+
+new Chart(document.getElementById('chart_ret'), {
+type: 'bar',
+data: {
+labels,
+datasets: [
+{ label: '策略均涨幅', data: avgRets, backgroundColor: 'rgba(231,76,60,0.8)', borderRadius: 4 },
+{ label: '市场基准', data: benchRets, backgroundColor: 'rgba(52,152,219,0.8)', borderRadius: 4 }
+]
+},
+options: {
+responsive: true,
+plugins: { legend: { position: 'top' }, title: { display: true, text: '各持有期均涨幅对比', font: { size: 15 } } },
+scales: { y: { ticks: { callback: v => v+'%' } } }
+}
+});
+
+const winRates = stats.map(r => parseFloat(r['胜率']));
+const beatRates = stats.map(r => parseFloat(r['跑赢基准']));
+new Chart(document.getElementById('chart_winrate'), {
+type: 'bar',
+data: {
+labels,
+datasets: [
+{ label: '胜率', data: winRates, backgroundColor: 'rgba(46,204,113,0.8)', borderRadius: 4 },
+{ label: '跑赢基准', data: beatRates, backgroundColor: 'rgba(52,152,219,0.8)', borderRadius: 4 }
+]
+},
+options: {
+responsive: true,
+plugins: { legend: { position: 'top' }, title: { display: true, text: '胜率 vs 跑赢基准', font: { size: 15 } } },
+scales: { y: { min: 0, max: 100, ticks: { callback: v => v+'%' } } }
+}
+});
+
+const dailyData = [{"date": "2026-01-05", "\u7b56\u7565\u5747\u6da82d": 10.29, "\u5e02\u573a\u57fa\u51c6": 1.8, "date_str": "01-05"}, {"date": "2026-01-06", "\u7b56\u7565\u5747\u6da82d": 0.6275000000000001, "\u5e02\u573a\u57fa\u51c6": 1.05, "date_str": "01-06"}, {"date": "2026-01-07", "\u7b56\u7565\u5747\u6da82d": 2.78, "\u5e02\u573a\u57fa\u51c6": 2.07, "date_str": "01-07"}, {"date": "2026-01-08", "\u7b56\u7565\u5747\u6da82d": 0.21, "\u5e02\u573a\u57fa\u51c6": 3.31, "date_str": "01-08"}, {"date": "2026-01-09", "\u7b56\u7565\u5747\u6da82d": -3.83, "\u5e02\u573a\u57fa\u51c6": 0.5, "date_str": "01-09"}, {"date": "2026-01-12", "\u7b56\u7565\u5747\u6da82d": -3.83, "\u5e02\u573a\u57fa\u51c6": -0.63, "date_str": "01-12"}, {"date": "2026-01-13", "\u7b56\u7565\u5747\u6da82d": 1.94, "\u5e02\u573a\u57fa\u51c6": 0.54, "date_str": "01-13"}, {"date": "2026-01-15", "\u7b56\u7565\u5747\u6da82d": -2.4, "\u5e02\u573a\u57fa\u51c6": 0.8, "date_str": "01-15"}, {"date": "2026-01-16", "\u7b56\u7565\u5747\u6da82d": -5.18, "\u5e02\u573a\u57fa\u51c6": 0.42, "date_str": "01-16"}, {"date": "2026-01-19", "\u7b56\u7565\u5747\u6da82d": 1.595, "\u5e02\u573a\u57fa\u51c6": 0.61, "date_str": "01-19"}, {"date": "2026-01-20", "\u7b56\u7565\u5747\u6da82d": 5.07, "\u5e02\u573a\u57fa\u51c6": 2.03, "date_str": "01-20"}, {"date": "2026-01-21", "\u7b56\u7565\u5747\u6da82d": 2.783333333333333, "\u5e02\u573a\u57fa\u51c6": 2.29, "date_str": "01-21"}, {"date": "2026-01-22", "\u7b56\u7565\u5747\u6da82d": 11.92, "\u5e02\u573a\u57fa\u51c6": 0.74, "date_str": "01-22"}, {"date": "2026-01-23", "\u7b56\u7565\u5747\u6da82d": 3.81, "\u5e02\u573a\u57fa\u51c6": -0.49, "date_str": "01-23"}, {"date": "2026-01-26", "\u7b56\u7565\u5747\u6da82d": 2.3, "\u5e02\u573a\u57fa\u51c6": 0.11, "date_str": "01-26"}, {"date": "2026-01-27", "\u7b56\u7565\u5747\u6da82d": 4.11, "\u5e02\u573a\u57fa\u51c6": -0.79, "date_str": "01-27"}, {"date": "2026-01-28", "\u7b56\u7565\u5747\u6da82d": -10.48, "\u5e02\u573a\u57fa\u51c6": -1.16, "date_str": "01-28"}, {"date": "2026-01-29", "\u7b56\u7565\u5747\u6da82d": -16.96666666666667, "\u5e02\u573a\u57fa\u51c6": -3.1, "date_str": "01-29"}, {"date": "2026-01-30", "\u7b56\u7565\u5747\u6da82d": -6.0, "\u5e02\u573a\u57fa\u51c6": -0.59, "date_str": "01-30"}, {"date": "2026-02-03", "\u7b56\u7565\u5747\u6da82d": -1.98, "\u5e02\u573a\u57fa\u51c6": -0.67, "date_str": "02-03"}, {"date": "2026-02-04", "\u7b56\u7565\u5747\u6da82d": 15.19, "\u5e02\u573a\u57fa\u51c6": -0.83, "date_str": "02-04"}, {"date": "2026-02-05", "\u7b56\u7565\u5747\u6da82d": 0.565, "\u5e02\u573a\u57fa\u51c6": 2.13, "date_str": "02-05"}, {"date": "2026-02-09", "\u7b56\u7565\u5747\u6da82d": 0.27999999999999997, "\u5e02\u573a\u57fa\u51c6": 0.12, "date_str": "02-09"}, {"date": "2026-02-10", "\u7b56\u7565\u5747\u6da82d": 0.7157142857142859, "\u5e02\u573a\u57fa\u51c6": 0.45, "date_str": "02-10"}, {"date": "2026-02-11", "\u7b56\u7565\u5747\u6da82d": 5.813333333333333, "\u5e02\u573a\u57fa\u51c6": -0.45, "date_str": "02-11"}, {"date": "2026-02-12", "\u7b56\u7565\u5747\u6da82d": 4.34, "\u5e02\u573a\u57fa\u51c6": 0.8100000000000002, "date_str": "02-12"}, {"date": "2026-02-13", "\u7b56\u7565\u5747\u6da82d": -0.62, "\u5e02\u573a\u57fa\u51c6": 2.93, "date_str": "02-13"}, {"date": "2026-02-24", "\u7b56\u7565\u5747\u6da82d": 3.6184615384615384, "\u5e02\u573a\u57fa\u51c6": 1.9499999999999997, "date_str": "02-24"}, {"date": "2026-02-25", "\u7b56\u7565\u5747\u6da82d": 3.6426666666666665, "\u5e02\u573a\u57fa\u51c6": 1.62, "date_str": "02-25"}, {"date": "2026-02-26", "\u7b56\u7565\u5747\u6da82d": 1.126923076923077, "\u5e02\u573a\u57fa\u51c6": 0.030000000000000002, "date_str": "02-26"}, {"date": "2026-02-27", "\u7b56\u7565\u5747\u6da82d": 0.1628571428571428, "\u5e02\u573a\u57fa\u51c6": -4.15, "date_str": "02-27"}, {"date": "2026-03-02", "\u7b56\u7565\u5747\u6da82d": -3.800625, "\u5e02\u573a\u57fa\u51c6": -3.84, "date_str": "03-02"}, {"date": "2026-03-03", "\u7b56\u7565\u5747\u6da82d": -10.754999999999999, "\u5e02\u573a\u57fa\u51c6": 0.77, "date_str": "03-03"}, {"date": "2026-03-04", "\u7b56\u7565\u5747\u6da82d": -3.215, "\u5e02\u573a\u57fa\u51c6": 2.44, "date_str": "03-04"}, {"date": "2026-03-05", "\u7b56\u7565\u5747\u6da82d": -4.55, "\u5e02\u573a\u57fa\u51c6": 0.31, "date_str": "03-05"}, {"date": "2026-03-06", "\u7b56\u7565\u5747\u6da82d": 1.9240000000000002, "\u5e02\u573a\u57fa\u51c6": 1.08, "date_str": "03-06"}, {"date": "2026-03-09", "\u7b56\u7565\u5747\u6da82d": 1.71, "\u5e02\u573a\u57fa\u51c6": 2.22, "date_str": "03-09"}, {"date": "2026-03-10", "\u7b56\u7565\u5747\u6da82d": 2.075, "\u5e02\u573a\u57fa\u51c6": -0.34, "date_str": "03-10"}, {"date": "2026-03-11", "\u7b56\u7565\u5747\u6da82d": -0.25749999999999995, "\u5e02\u573a\u57fa\u51c6": -1.59, "date_str": "03-11"}, {"date": "2026-03-12", "\u7b56\u7565\u5747\u6da82d": -4.304, "\u5e02\u573a\u57fa\u51c6": -0.89, "date_str": "03-12"}, {"date": "2026-03-13", "\u7b56\u7565\u5747\u6da82d": -8.355, "\u5e02\u573a\u57fa\u51c6": -1.99, "date_str": "03-13"}, {"date": "2026-03-16", "\u7b56\u7565\u5747\u6da82d": 9.775, "\u5e02\u573a\u57fa\u51c6": -1.02, "date_str": "03-16"}, {"date": "2026-03-18", "\u7b56\u7565\u5747\u6da82d": -1.513333333333333, "\u5e02\u573a\u57fa\u51c6": -4.21, "date_str": "03-18"}, {"date": "2026-03-25", "\u7b56\u7565\u5747\u6da82d": -5.2, "\u5e02\u573a\u57fa\u51c6": -0.04, "date_str": "03-25"}, {"date": "2026-03-26", "\u7b56\u7565\u5747\u6da82d": -5.28, "\u5e02\u573a\u57fa\u51c6": 1.79, "date_str": "03-26"}, {"date": "2026-03-27", "\u7b56\u7565\u5747\u6da82d": 12.85, "\u5e02\u573a\u57fa\u51c6": -1.29, "date_str": "03-27"}, {"date": "2026-03-30", "\u7b56\u7565\u5747\u6da82d": -0.1766666666666666, "\u5e02\u573a\u57fa\u51c6": 0.12, "date_str": "03-30"}, {"date": "2026-03-31", "\u7b56\u7565\u5747\u6da82d": 3.331666666666667, "\u5e02\u573a\u57fa\u51c6": 0.20000000000000004, "date_str": "03-31"}, {"date": "2026-04-01", "\u7b56\u7565\u5747\u6da82d": 0.11999999999999988, "\u5e02\u573a\u57fa\u51c6": -3.05, "date_str": "04-01"}, {"date": "2026-04-02", "\u7b56\u7565\u5747\u6da82d": 0.8800000000000002, "\u5e02\u573a\u57fa\u51c6": -0.14, "date_str": "04-02"}, {"date": "2026-04-03", "\u7b56\u7565\u5747\u6da82d": 2.915, "\u5e02\u573a\u57fa\u51c6": 5.44, "date_str": "04-03"}, {"date": "2026-04-07", "\u7b56\u7565\u5747\u6da82d": 9.98, "\u5e02\u573a\u57fa\u51c6": 3.5099999999999993, "date_str": "04-07"}, {"date": "2026-04-08", "\u7b56\u7565\u5747\u6da82d": 2.3266666666666667, "\u5e02\u573a\u57fa\u51c6": 0.22, "date_str": "04-08"}, {"date": "2026-04-09", "\u7b56\u7565\u5747\u6da82d": 4.210714285714286, "\u5e02\u573a\u57fa\u51c6": 1.32, "date_str": "04-09"}, {"date": "2026-04-10", "\u7b56\u7565\u5747\u6da82d": -2.78, "\u5e02\u573a\u57fa\u51c6": 1.69, "date_str": "04-10"}, {"date": "2026-04-13", "\u7b56\u7565\u5747\u6da82d": -1.41, "\u5e02\u573a\u57fa\u51c6": 0.73, "date_str": "04-13"}, {"date": "2026-04-14", "\u7b56\u7565\u5747\u6da82d": 4.4725, "\u5e02\u573a\u57fa\u51c6": 1.09, "date_str": "04-14"}, {"date": "2026-04-17", "\u7b56\u7565\u5747\u6da82d": 20.27, "\u5e02\u573a\u57fa\u51c6": 0.76, "date_str": "04-17"}, {"date": "2026-04-20", "\u7b56\u7565\u5747\u6da82d": 3.67, "\u5e02\u573a\u57fa\u51c6": 0.83, "date_str": "04-20"}, {"date": "2026-04-21", "\u7b56\u7565\u5747\u6da82d": 6.77, "\u5e02\u573a\u57fa\u51c6": -0.36999999999999994, "date_str": "04-21"}, {"date": "2026-04-22", "\u7b56\u7565\u5747\u6da82d": -8.115, "\u5e02\u573a\u57fa\u51c6": -1.59, "date_str": "04-22"}, {"date": "2026-04-23", "\u7b56\u7565\u5747\u6da82d": -3.34, "\u5e02\u573a\u57fa\u51c6": 0.35, "date_str": "04-23"}, {"date": "2026-04-27", "\u7b56\u7565\u5747\u6da82d": 4.56, "\u5e02\u573a\u57fa\u51c6": 0.11, "date_str": "04-27"}, {"date": "2026-04-30", "\u7b56\u7565\u5747\u6da82d": 1.44, "\u5e02\u573a\u57fa\u51c6": 3.13, "date_str": "04-30"}, {"date": "2026-05-06", "\u7b56\u7565\u5747\u6da82d": 2.028, "\u5e02\u573a\u57fa\u51c6": 2.24, "date_str": "05-06"}, {"date": "2026-05-07", "\u7b56\u7565\u5747\u6da82d": 5.85, "\u5e02\u573a\u57fa\u51c6": 1.98, "date_str": "05-07"}, {"date": "2026-05-08", "\u7b56\u7565\u5747\u6da82d": 3.9262499999999996, "\u5e02\u573a\u57fa\u51c6": 0.63, "date_str": "05-08"}, {"date": "2026-05-11", "\u7b56\u7565\u5747\u6da82d": 0.65, "\u5e02\u573a\u57fa\u51c6": 0.94, "date_str": "05-11"}, {"date": "2026-05-12", "\u7b56\u7565\u5747\u6da82d": 3.8000000000000003, "\u5e02\u573a\u57fa\u51c6": -0.3, "date_str": "05-12"}, {"date": "2026-05-13", "\u7b56\u7565\u5747\u6da82d": -0.6233333333333335, "\u5e02\u573a\u57fa\u51c6": -2.5, "date_str": "05-13"}, {"date": "2026-05-14", "\u7b56\u7565\u5747\u6da82d": -1.638, "\u5e02\u573a\u57fa\u51c6": -0.65, "date_str": "05-14"}, {"date": "2026-05-15", "\u7b56\u7565\u5747\u6da82d": 6.09, "\u5e02\u573a\u57fa\u51c6": 1.32, "date_str": "05-15"}, {"date": "2026-05-18", "\u7b56\u7565\u5747\u6da82d": 6.74, "\u5e02\u573a\u57fa\u51c6": 0.88, "date_str": "05-18"}, {"date": "2026-05-19", "\u7b56\u7565\u5747\u6da82d": -6.48, "\u5e02\u573a\u57fa\u51c6": -3.01, "date_str": "05-19"}, {"date": "2026-05-20", "\u7b56\u7565\u5747\u6da82d": 1.085, "\u5e02\u573a\u57fa\u51c6": -0.63, "date_str": "05-20"}, {"date": "2026-05-22", "\u7b56\u7565\u5747\u6da82d": 1.4324999999999999, "\u5e02\u573a\u57fa\u51c6": -0.02, "date_str": "05-22"}, {"date": "2026-05-25", "\u7b56\u7565\u5747\u6da82d": 1.7144444444444444, "\u5e02\u573a\u57fa\u51c6": -2.39, "date_str": "05-25"}, {"date": "2026-05-26", "\u7b56\u7565\u5747\u6da82d": 4.692, "\u5e02\u573a\u57fa\u51c6": -0.35, "date_str": "05-26"}, {"date": "2026-05-27", "\u7b56\u7565\u5747\u6da82d": 6.04, "\u5e02\u573a\u57fa\u51c6": -0.69, "date_str": "05-27"}, {"date": "2026-05-28", "\u7b56\u7565\u5747\u6da82d": -3.905, "\u5e02\u573a\u57fa\u51c6": -1.22, "date_str": "05-28"}, {"date": "2026-05-29", "\u7b56\u7565\u5747\u6da82d": -6.5, "\u5e02\u573a\u57fa\u51c6": 3.44, "date_str": "05-29"}, {"date": "2026-06-01", "\u7b56\u7565\u5747\u6da82d": NaN, "\u5e02\u573a\u57fa\u51c6": NaN, "date_str": "06-01"}];
+new Chart(document.getElementById('chart_daily'), {
+type: 'line',
+data: {
+labels: dailyData.map(d => d.date_str),
+datasets: [
+{ label: '策略均涨2d', data: dailyData.map(d => d['策略均涨2d']), borderColor: '#e74c3c', backgroundColor: 'transparent', tension: 0.3, pointRadius: 0 },
+{ label: '市场基准', data: dailyData.map(d => d['市场基准']), borderColor: '#3498db', backgroundColor: 'transparent', tension: 0.3, pointRadius: 0, borderDash: [5,5] }
+]
+},
+options: {
+responsive: true, interaction: { mode: 'index', intersect: false },
+plugins: { legend: { position: 'top' }, title: { display: true, text: '每日收益走势（2日持有期）', font: { size: 15 } } },
+scales: { y: { ticks: { callback: v => v+'%' } } }
+}
+});
+
+const monthly = [{"month": "2026-01", "\u4fe1\u53f7\u6570": 33, "\u5747\u6da82d": -0.7957575757575758, "\u5747\u6da810d": -0.6406060606060607, "\u5747\u6da830d": 0.6539393939393935, "\u5747\u6da860d": 0.006666666666667063, "\u80dc\u73872d": 51.515151515151516, "\u80dc\u738710d": 39.39393939393939}, {"month": "2026-02", "\u4fe1\u53f7\u6570": 88, "\u5747\u6da82d": 2.204772727272727, "\u5747\u6da810d": -0.38852272727272724, "\u5747\u6da830d": -5.291477272727272, "\u5747\u6da860d": 16.79655172413793, "\u80dc\u73872d": 59.09090909090909, "\u80dc\u738710d": 42.04545454545455}, {"month": "2026-03", "\u4fe1\u53f7\u6570": 65, "\u5747\u6da82d": -1.4312307692307693, "\u5747\u6da810d": -2.5366153846153847, "\u5747\u6da830d": 10.283538461538463, "\u5747\u6da860d": -7.5435, "\u80dc\u73872d": 36.92307692307693, "\u80dc\u738710d": 33.84615384615385}, {"month": "2026-04", "\u4fe1\u53f7\u6570": 53, "\u5747\u6da82d": 3.460566037735849, "\u5747\u6da810d": 11.722641509433961, "\u5747\u6da830d": 37.10785714285714, "\u5747\u6da860d": NaN, "\u80dc\u73872d": 66.0377358490566, "\u80dc\u738710d": 83.01886792452831}, {"month": "2026-05", "\u4fe1\u53f7\u6570": 65, "\u5747\u6da82d": 1.693230769230769, "\u5747\u6da810d": 9.29921052631579, "\u5747\u6da830d": NaN, "\u5747\u6da860d": NaN, "\u80dc\u73872d": 56.92307692307692, "\u80dc\u738710d": 38.46153846153847}, {"month": "2026-06", "\u4fe1\u53f7\u6570": 0, "\u5747\u6da82d": NaN, "\u5747\u6da810d": NaN, "\u5747\u6da830d": NaN, "\u5747\u6da860d": NaN, "\u80dc\u73872d": 0.0, "\u80dc\u738710d": 0.0}];
+new Chart(document.getElementById('chart_monthly'), {
+type: 'bar',
+data: {
+labels: monthly.map(m => m.month),
+datasets: [
+{ label: '信号数', data: monthly.map(m => m['信号数']), backgroundColor: 'rgba(52,152,219,0.7)', yAxisID: 'y', order: 2, borderRadius: 3 },
+{ label: '2日均涨%', data: monthly.map(m => m['均涨2d']), type: 'line', borderColor: '#e74c3c', backgroundColor: 'transparent', tension: 0.3, pointBackgroundColor: '#e74c3c', yAxisID: 'y1', order: 1 },
+{ label: '胜率%', data: monthly.map(m => m['胜率2d']), type: 'line', borderColor: '#2ecc71', backgroundColor: 'transparent', tension: 0.3, pointBackgroundColor: '#2ecc71', yAxisID: 'y1', order: 1, borderDash: [4,4] }
+]
+},
+options: {
+responsive: true,
+plugins: { legend: { position: 'top' }, title: { display: true, text: '月度表现', font: { size: 15 } } },
+scales: {
+y: { position: 'left', beginAtZero: true, title: { display: true, text: '信号数' } },
+y1: { position: 'right', grid: { drawOnChartArea: false }, ticks: { callback: v => v+'%' } }
+}
+}
+});
+
+function makeHist(id, label) {
+const hd = {"2\u65e5": {"centers": [-18.35, -17.0, -15.67, -14.33, -13.0, -11.67, -10.34, -9.0, -7.67, -6.34, -5.0, -3.67, -2.34, -1.0, 0.33, 1.66, 2.99, 4.33, 5.66, 6.99, 8.33, 9.66, 10.99, 12.33, 13.66, 14.99, 16.32, 17.66, 18.99, 20.32], "counts": [2, 0, 0, 0, 4, 2, 4, 8, 11, 7, 17, 23, 28, 26, 28, 29, 20, 21, 16, 13, 10, 7, 3, 6, 1, 4, 3, 3, 3, 5]}, "10\u65e5": {"centers": [-20.34, -16.65, -13.02, -9.39, -5.76, -2.13, 1.5, 5.13, 8.76, 12.39, 16.02, 19.65, 23.28, 26.91, 30.54, 34.17, 37.8, 41.43, 45.06, 48.69, 52.32, 55.95, 59.58, 63.21, 66.84, 70.47, 74.1, 77.73, 81.36, 84.99], "counts": [11, 18, 17, 28, 27, 32, 27, 23, 22, 19, 12, 11, 9, 6, 5, 2, 2, 1, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1]}, "30\u65e5": {"centers": [-45.64, -39.47, -33.4, -27.32, -21.24, -15.16, -9.09, -3.01, 3.07, 9.14, 15.22, 21.3, 27.38, 33.45, 39.53, 45.61, 51.69, 57.76, 63.84, 69.92, 76.0, 82.07, 88.15, 94.23, 100.3, 106.38, 112.46, 118.54, 124.61, 130.69], "counts": [1, 0, 3, 8, 21, 39, 25, 21, 19, 11, 12, 11, 15, 8, 4, 5, 6, 2, 5, 2, 3, 1, 2, 2, 0, 0, 1, 0, 0, 1]}, "60\u65e5": {"centers": [-53.12, -45.7, -38.39, -31.08, -23.78, -16.46, -9.16, -1.84, 5.47, 12.78, 20.09, 27.4, 34.7, 42.02, 49.32, 56.64, 63.95, 71.26, 78.57, 85.88, 93.19, 100.5, 107.81, 115.12, 122.42, 129.73, 137.04, 144.35, 151.66, 158.98], "counts": [2, 1, 1, 10, 12, 25, 14, 12, 9, 11, 8, 4, 2, 4, 6, 5, 2, 0, 1, 1, 3, 2, 2, 1, 1, 0, 0, 0, 0, 1]}};
+const d = hd[label];
+new Chart(document.getElementById(id), {
+type: 'bar',
+data: {
+labels: d.centers.map(v => v.toFixed(1)+'%'),
+datasets: [{ label: '频数', data: d.counts, backgroundColor: 'rgba(52,152,219,0.6)', borderRadius: 3 }]
+},
+options: {
+responsive: true,
+plugins: { legend: { display: false }, title: { display: true, text: label+'收益分布', font: { size: 13 } } },
+scales: { x: { ticks: { maxTicksLimit: 15, callback: v => v } }, y: { beginAtZero: true } }
+}
+});
+}
+makeHist('hist_2d', '2日');
+makeHist('hist_10d', '10日');
+</script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A股智能选股分析报告 - 2026-06-04</title>
+    <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                     "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+        background: #0d1117;
+        color: #c9d1d9;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    /* Header */
+    .report-header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        border-radius: 12px;
+        padding: 30px 40px;
+        margin-bottom: 24px;
+        border: 1px solid #30363d;
+        text-align: center;
+    }
+    .report-header h1 {
+        font-size: 28px;
+        color: #e6edf3;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+    }
+    .report-header .subtitle {
+        font-size: 14px;
+        color: #8b949e;
+    }
+    .report-header .date-badge {
+        display: inline-block;
+        background: #58a6ff22;
+        color: #58a6ff;
+        padding: 4px 16px;
+        border-radius: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        border: 1px solid #58a6ff44;
+        margin-top: 8px;
+    }
+
+    /* Stats Cards */
+    .stats-row {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+    }
+    .stat-card {
+        flex: 1;
+        min-width: 160px;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s, border-color 0.2s;
+    }
+    .stat-card:hover {
+        transform: translateY(-2px);
+        border-color: #58a6ff;
+    }
+    .stat-card .num {
+        font-size: 32px;
+        font-weight: 700;
+    }
+    .stat-card .label {
+        font-size: 13px;
+        color: #8b949e;
+        margin-top: 4px;
+    }
+    .stat-card.king .num { color: #ffd700; }
+    .stat-card.main .num { color: #58a6ff; }
+    .stat-card.manual .num { color: #bc8cff; }
+    .stat-card.ebk .num { color: #79c0ff; }
+
+    /* Section Card */
+    .section-card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    .section-header {
+        background: #1c2333;
+        padding: 16px 24px;
+        border-bottom: 1px solid #30363d;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .section-header h2 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #e6edf3;
+    }
+    .section-header .badge {
+        font-size: 12px;
+        padding: 3px 12px;
+        border-radius: 12px;
+        background: #30363d;
+        color: #8b949e;
+    }
+    .section-header .badge.green { background: #27ae6033; color: #27ae60; }
+    .section-header .badge.blue { background: #58a6ff33; color: #58a6ff; }
+    .section-header .badge.gold { background: #ffd70033; color: #ffd700; }
+
+    /* Tables */
+    .table-wrap {
+        overflow-x: auto;
+        padding: 0;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+    thead th {
+        background: #1c2333;
+        color: #8b949e;
+        font-weight: 600;
+        text-align: center;
+        padding: 12px 10px;
+        border-bottom: 2px solid #30363d;
+        white-space: nowrap;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+    tbody tr {
+        border-bottom: 1px solid #21262d;
+        transition: background 0.15s;
+    }
+    tbody tr:hover { background: #1c2333; }
+    tbody tr:nth-child(even) { background: #0d1117; }
+    tbody tr:nth-child(even):hover { background: #1c2333; }
+    tbody td {
+        padding: 10px 10px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    /* 涨跌颜色 */
+    .up { color: #e74c3c; font-weight: 600; }
+    .down { color: #27ae60; font-weight: 600; }
+    .flat { color: #8b949e; }
+
+    /* 股票代码 */
+    .code-link {
+        color: #58a6ff;
+        text-decoration: none;
+        font-family: "Consolas", "Courier New", monospace;
+        font-weight: 600;
+    }
+    .code-link:hover { text-decoration: underline; }
+
+    /* 股票名称链接 */
+    .name-link {
+        color: #e6edf3;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .name-link:hover {
+        color: #58a6ff;
+        text-decoration: underline;
+    }
+
+    /* 标记符号 */
+    .check-mark { color: #27ae60; font-size: 14px; }
+    .cross-mark { color: #8b949e; font-size: 14px; }
+
+    /* King Stock 行 */
+    .king-row { background: #332b00 !important; }
+    .king-row td { color: #ffd700; }
+    .king-row:nth-child(even) { background: #3d3400 !important; }
+
+    /* 重点关注行（连选 >= 3天） */
+    .focus-row { background: #1a3a1a !important; }
+    .focus-row td { color: #7ecb7e; }
+    .focus-row:nth-child(even) { background: #1f4520 !important; }
+
+    /* King 区域 */
+    .king-section {
+        background: linear-gradient(135deg, #1a1500 0%, #2a2200 100%);
+        border: 2px solid #ffd70055;
+        border-radius: 10px;
+        padding: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .king-section h2 {
+        color: #ffd700;
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+    .king-section .king-stocks {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+    }
+    .king-stock-item {
+        background: #332b00;
+        border: 1px solid #ffd70044;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffd700;
+    }
+    .king-stock-item .king-code { color: #58a6ff; }
+
+    /* Rule Summary */
+    .rule-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        padding: 20px 24px;
+    }
+    .rule-item {
+        background: #0d1117;
+        border: 1px solid #21262d;
+        border-radius: 8px;
+        padding: 12px 16px;
+        text-align: center;
+    }
+    .rule-item .rlabel { font-size: 12px; color: #8b949e; }
+    .rule-item .rnum { font-size: 24px; font-weight: 700; margin: 4px 0; }
+    .rule-item .rtype {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 8px;
+        display: inline-block;
+    }
+    .rtype.core { background: #27ae6033; color: #27ae60; }
+    .rtype.bonus { background: #58a6ff33; color: #58a6ff; }
+    .rtype.init { background: #8b949e33; color: #8b949e; }
+
+    /* 空状态 */
+    .empty-state {
+        padding: 40px;
+        text-align: center;
+        color: #8b949e;
+        font-size: 14px;
+    }
+
+    /* Footer */
+    .report-footer {
+        text-align: center;
+        padding: 20px;
+        color: #484f58;
+        font-size: 12px;
+        border-top: 1px solid #21262d;
+        margin-top: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        body { padding: 10px; }
+        .report-header { padding: 20px; }
+        .report-header h1 { font-size: 20px; }
+        .stat-card { min-width: 120px; }
+        .stat-card .num { font-size: 24px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="report-header">
+    <h1>A股智能选股分析报告</h1>
+    <div class="date-badge">2026-06-04</div>
+    <div class="subtitle" style="margin-top:12px;">
+        核心条件：MACD买入信号 ∩ ZJTJ庄家控盘 &nbsp;|&nbsp; 加分项：KDJ买入 + 财务增长
+    </div>
+</div>
+
+<div class="stats-row">
+    <div class="stat-card main">
+        <div class="num">5</div>
+        <div class="label">主选股结果</div>
+    </div>
+    <div class="stat-card manual">
+        <div class="num">2</div>
+        <div class="label">手工选股满足核心</div>
+    </div>
+    <div class="stat-card ebk">
+        <div class="num">46</div>
+        <div class="label">龙头EBK满足核心</div>
+    </div>
+    <div class="stat-card king">
+        <div class="num">0</div>
+        <div class="label">👑 King Stock</div>
+    </div>
+</div>
+
+    <div class="section-card">
+    <div class="section-header">
+        <h2>规则筛选汇总</h2>
+        <span class="badge">各规则筛选结果</span>
+    </div>
+    <div class="rule-grid">
+                <div class="rule-item">
+            <div class="rlabel">板块RPS筛选</div>
+            <div class="rnum" style="color:#e6edf3">118</div>
+            <div style="font-size:11px;color:#8b949e;">5525只 &rarr; 118只</div>
+            <span class="rtype init">初始池</span>
+        </div>        <div class="rule-item">
+            <div class="rlabel">MACD买入信号</div>
+            <div class="rnum" style="color:#e6edf3">6</div>
+            <div style="font-size:11px;color:#8b949e;">118只 &rarr; 6只</div>
+            <span class="rtype core">核心</span>
+        </div>        <div class="rule-item">
+            <div class="rlabel">ZJTJ庄家控盘</div>
+            <div class="rnum" style="color:#e6edf3">84</div>
+            <div style="font-size:11px;color:#8b949e;">118只 &rarr; 84只</div>
+            <span class="rtype core">核心</span>
+        </div>        <div class="rule-item">
+            <div class="rlabel">KDJ买入信号</div>
+            <div class="rnum" style="color:#e6edf3">2</div>
+            <div style="font-size:11px;color:#8b949e;">118只 &rarr; 2只</div>
+            <span class="rtype bonus">加分项</span>
+        </div>        <div class="rule-item">
+            <div class="rlabel">财务基本面</div>
+            <div class="rnum" style="color:#e6edf3">11</div>
+            <div style="font-size:11px;color:#8b949e;">118只 &rarr; 11只</div>
+            <span class="rtype bonus">加分项</span>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="section-card">
+        <div class="section-header">
+            <h2>主选股结果</h2>
+            <span class="badge blue">核心条件：MACD &#8745; ZJTJ</span>
+        </div>
+        <div class="table-wrap">
+    <table><thead><tr><th>代码</th><th>名称</th><th>板块</th><th>DIF</th><th>DEA</th><th>MACD</th><th>K</th><th>D</th><th>J</th><th>控盘度</th><th>KDJ加分</th><th>财务加分</th><th>加分合计</th><th>今日涨跌</th><th>连选天数</th><th>重点关注</th><th>近3日</th><th>近5日</th><th>近10日</th></tr></thead><tbody><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002876" target="_blank">002876</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002876" target="_blank">三利谱</a></td><td>OLED</td><td>+0.2759</td><td>+0.1552</td><td>+0.2414</td><td>65.22</td><td>45.75</td><td>104.14</td><td>3.75</td><td></td><td></td><td><span style="font-weight:600">0</span></td><td><span class="up">+2.57%</span></td><td>1</td><td></td><td><span class="up">+15.30%</span></td><td><span class="up">+8.96%</span></td><td><span class="up">+9.48%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ301362" target="_blank">301362</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ301362" target="_blank">民爆光电</a></td><td>PCB概念</td><td>+18.6285</td><td>+17.6283</td><td>+2.0004</td><td>67.65</td><td>65.08</td><td>72.79</td><td>18.95</td><td></td><td></td><td><span style="font-weight:600">0</span></td><td><span class="up">+13.77%</span></td><td>1</td><td></td><td><span class="up">+28.35%</span></td><td><span class="up">+8.85%</span></td><td><span class="up">+38.00%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ301528" target="_blank">301528</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ301528" target="_blank">多浦乐</a></td><td>成飞概念</td><td>+0.7763</td><td>+0.4349</td><td>+0.6829</td><td>54.06</td><td>36.81</td><td>88.56</td><td>4.55</td><td></td><td></td><td><span style="font-weight:600">0</span></td><td><span class="up">+14.56%</span></td><td>1</td><td></td><td><span class="up">+22.16%</span></td><td><span class="up">+13.64%</span></td><td><span class="up">+16.79%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH601208" target="_blank">601208</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH601208" target="_blank">东材科技</a></td><td>BC电池</td><td>+4.2040</td><td>+3.9816</td><td>+0.4448</td><td>76.41</td><td>68.21</td><td>92.81</td><td>13.95</td><td></td><td></td><td><span style="font-weight:600">0</span></td><td><span class="up">+5.51%</span></td><td>1</td><td></td><td><span class="up">+24.71%</span></td><td><span class="up">+9.50%</span></td><td><span class="up">+25.00%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH688668" target="_blank">688668</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH688668" target="_blank">鼎通科技</a></td><td>英伟达概念</td><td>+26.8531</td><td>+23.4962</td><td>+6.7138</td><td>68.46</td><td>61.69</td><td>82.01</td><td>19.49</td><td></td><td></td><td><span style="font-weight:600">0</span></td><td><span class="up">+20.00%</span></td><td>1</td><td></td><td><span class="up">+36.19%</span></td><td><span class="up">+19.31%</span></td><td><span class="up">+39.58%</span></td></tr></tbody></table>
+</div>
+    </div>
+    <div class="section-card">
+        <div class="section-header">
+            <h2>手工选股分析</h2>
+            <span class="badge green">2只满足核心条件</span>
+        </div>
+        <div class="table-wrap">
+    <table><thead><tr><th>代码</th><th>名称</th><th>MACD</th><th>K</th><th>D</th><th>J</th><th>控盘度</th><th>规则详情</th><th>核心条件</th><th>今日涨跌</th><th>连选天数</th><th>重点关注</th><th>近3日</th><th>近5日</th><th>近10日</th></tr></thead><tbody><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000608" target="_blank">000608</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000608" target="_blank">阳光股份</a></td><td>+0.2156</td><td>83.44</td><td>76.74</td><td>96.85</td><td>18.50</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="check-mark">&#10004;</span></td><td><span class="up">+8.19%</span></td><td>1</td><td></td><td><span class="up">+1.83%</span></td><td><span class="up">+20.67%</span></td><td><span class="up">+26.77%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH603733" target="_blank">603733</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH603733" target="_blank">仙鹤股份</a></td><td>+1.0345</td><td>86.84</td><td>75.18</td><td>110.17</td><td>14.31</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="check-mark">&#10004;</span></td><td><span class="up">+2.28%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+6.86%</span></td><td><span class="up">+10.08%</span></td><td><span class="up">+25.36%</span></td></tr></tbody></table>
+</div>
+    </div>
+    <div class="section-card">
+        <div class="section-header">
+            <h2>龙头公司EBK分析</h2>
+            <span class="badge green">46/513只满足核心条件</span>
+        </div>
+        <div class="table-wrap">
+    <table><thead><tr><th>代码</th><th>名称</th><th>MACD</th><th>K</th><th>D</th><th>J</th><th>控盘度</th><th>规则详情</th><th>今日涨跌</th><th>连选天数</th><th>重点关注</th><th>近3日</th><th>近5日</th><th>近10日</th></tr></thead><tbody><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000333" target="_blank">000333</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000333" target="_blank">美的集团</a></td><td>+0.1681</td><td>73.52</td><td>59.48</td><td>101.59</td><td>1.84</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-0.23%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+0.88%</span></td><td><span class="up">+4.40%</span></td><td><span class="up">+1.13%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002334" target="_blank">002334</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002334" target="_blank">英威腾</a></td><td>+0.0090</td><td>57.15</td><td>46.93</td><td>77.58</td><td>2.46</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+5.22%</span></td><td>1</td><td></td><td><span class="up">+10.24%</span></td><td><span class="up">+4.07%</span></td><td><span class="up">+8.85%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300308" target="_blank">300308</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300308" target="_blank">中际旭创</a></td><td>+21.8786</td><td>84.15</td><td>82.27</td><td>87.90</td><td>17.56</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入 | ✓财务增长</td><td><span class="up">+0.39%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+13.27%</span></td><td><span class="up">+6.85%</span></td><td><span class="up">+28.86%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300502" target="_blank">300502</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300502" target="_blank">新易盛</a></td><td>+24.0955</td><td>84.30</td><td>82.90</td><td>87.10</td><td>19.65</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-0.81%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+14.14%</span></td><td><span class="up">+8.02%</span></td><td><span class="up">+37.09%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300373" target="_blank">300373</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300373" target="_blank">扬杰科技</a></td><td>+2.6843</td><td>65.38</td><td>69.87</td><td>56.39</td><td>15.66</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-0.30%</span></td><td>1</td><td></td><td><span class="up">+6.30%</span></td><td><span class="down">-7.70%</span></td><td><span class="up">+35.94%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000539" target="_blank">000539</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000539" target="_blank">粤电力Ａ</a></td><td>+0.4563</td><td>83.31</td><td>77.39</td><td>95.15</td><td>25.30</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-2.45%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="down">-6.14%</span></td><td><span class="up">+13.63%</span></td><td><span class="up">+42.39%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH600546" target="_blank">600546</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH600546" target="_blank">山煤国际</a></td><td>+0.1159</td><td>60.09</td><td>60.68</td><td>58.90</td><td>6.53</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-1.63%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="down">-5.30%</span></td><td><span class="up">+5.70%</span></td><td><span class="up">+8.31%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300234" target="_blank">300234</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300234" target="_blank">开尔新材</a></td><td>+0.0415</td><td>64.97</td><td>64.46</td><td>65.99</td><td>9.08</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+0.24%</span></td><td>1</td><td></td><td><span class="up">+1.07%</span></td><td><span class="down">-1.85%</span></td><td><span class="up">+18.85%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH600293" target="_blank">600293</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH600293" target="_blank">三峡新材</a></td><td>+0.0525</td><td>65.76</td><td>56.79</td><td>83.71</td><td>5.20</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+10.09%</span></td><td>1</td><td></td><td><span class="up">+8.11%</span></td><td><span class="up">+4.96%</span></td><td><span class="up">+15.02%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300737" target="_blank">300737</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300737" target="_blank">科顺股份</a></td><td>+0.1030</td><td>56.54</td><td>45.90</td><td>77.83</td><td>8.82</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+4.17%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+9.41%</span></td><td><span class="up">+17.43%</span></td><td><span class="up">+13.35%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000582" target="_blank">000582</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000582" target="_blank">北部湾港</a></td><td>+0.1547</td><td>63.13</td><td>66.46</td><td>56.47</td><td>9.26</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-9.99%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+1.51%</span></td><td><span class="up">+0.45%</span></td><td><span class="up">+7.53%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002568" target="_blank">002568</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002568" target="_blank">百润股份</a></td><td>+0.0844</td><td>55.07</td><td>62.04</td><td>41.13</td><td>3.08</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-6.49%</span></td><td>1</td><td></td><td><span class="down">-10.85%</span></td><td><span class="down">-2.49%</span></td><td><span class="down">-0.72%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ301071" target="_blank">301071</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ301071" target="_blank">力量钻石</a></td><td>+1.3620</td><td>59.54</td><td>65.08</td><td>48.45</td><td>18.05</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-2.91%</span></td><td>1</td><td></td><td><span class="up">+6.78%</span></td><td><span class="down">-6.31%</span></td><td><span class="up">+30.82%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002938" target="_blank">002938</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002938" target="_blank">鹏鼎控股</a></td><td>+0.0403</td><td>50.28</td><td>57.65</td><td>35.54</td><td>13.75</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="up">+2.49%</span></td><td>1</td><td></td><td><span class="up">+7.41%</span></td><td><span class="up">+4.72%</span></td><td><span class="up">+17.49%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300037" target="_blank">300037</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300037" target="_blank">新宙邦</a></td><td>+0.7820</td><td>57.70</td><td>57.60</td><td>57.89</td><td>8.06</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+10.20%</span></td><td>1</td><td></td><td><span class="up">+10.34%</span></td><td><span class="down">-2.01%</span></td><td><span class="up">+17.69%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002975" target="_blank">002975</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002975" target="_blank">博杰股份</a></td><td>+1.9720</td><td>73.32</td><td>74.70</td><td>70.56</td><td>20.12</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-2.97%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+6.32%</span></td><td><span class="up">+6.94%</span></td><td><span class="up">+29.95%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH603212" target="_blank">603212</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH603212" target="_blank">赛伍技术</a></td><td>+0.1352</td><td>68.27</td><td>56.42</td><td>91.96</td><td>5.41</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+0.44%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+9.25%</span></td><td><span class="up">+4.63%</span></td><td><span class="up">+12.44%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002579" target="_blank">002579</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002579" target="_blank">中京电子</a></td><td>+1.3541</td><td>83.92</td><td>82.54</td><td>86.69</td><td>34.03</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+5.96%</span></td><td>1</td><td></td><td><span class="up">+9.22%</span></td><td><span class="up">+13.30%</span></td><td><span class="up">+61.39%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH603733" target="_blank">603733</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH603733" target="_blank">仙鹤股份</a></td><td>+1.0345</td><td>86.84</td><td>75.18</td><td>110.17</td><td>14.31</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+2.28%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+6.86%</span></td><td><span class="up">+10.08%</span></td><td><span class="up">+25.36%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002463" target="_blank">002463</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002463" target="_blank">沪电股份</a></td><td>+2.8738</td><td>80.30</td><td>77.10</td><td>86.72</td><td>15.96</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入 | ✓财务增长</td><td><span class="up">+8.49%</span></td><td>1</td><td></td><td><span class="up">+14.95%</span></td><td><span class="up">+5.83%</span></td><td><span class="up">+35.80%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000519" target="_blank">000519</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000519" target="_blank">中兵红箭</a></td><td>+0.3940</td><td>68.68</td><td>68.19</td><td>69.68</td><td>8.18</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-2.57%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+2.18%</span></td><td><span class="up">+0.92%</span></td><td><span class="up">+17.12%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH688082" target="_blank">688082</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH688082" target="_blank">盛美上海</a></td><td>+6.4285</td><td>67.85</td><td>63.93</td><td>75.69</td><td>19.91</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入 | ✓财务增长</td><td><span class="up">+6.94%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+25.73%</span></td><td><span class="up">+10.92%</span></td><td><span class="up">+27.16%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ001289" target="_blank">001289</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ001289" target="_blank">龙源电力</a></td><td>+0.2736</td><td>72.79</td><td>70.09</td><td>78.19</td><td>7.51</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+2.55%</span></td><td>1</td><td></td><td><span class="up">+1.74%</span></td><td><span class="up">+6.69%</span></td><td><span class="up">+14.06%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000722" target="_blank">000722</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000722" target="_blank">湖南发展</a></td><td>+0.4397</td><td>62.04</td><td>55.89</td><td>74.32</td><td>10.51</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-5.23%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="down">-2.95%</span></td><td><span class="up">+11.76%</span></td><td><span class="up">+16.63%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002527" target="_blank">002527</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002527" target="_blank">新时达</a></td><td>+0.2353</td><td>71.88</td><td>68.72</td><td>78.21</td><td>6.14</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+1.57%</span></td><td>1</td><td></td><td><span class="down">-3.69%</span></td><td><span class="up">+12.80%</span></td><td><span class="up">+6.05%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300130" target="_blank">300130</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300130" target="_blank">新国都</a></td><td>+0.2919</td><td>70.96</td><td>66.08</td><td>80.73</td><td>4.25</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+2.25%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+4.03%</span></td><td><span class="up">+2.71%</span></td><td><span class="up">+6.01%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300814" target="_blank">300814</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300814" target="_blank">中富电路</a></td><td>+0.7467</td><td>51.11</td><td>59.97</td><td>33.40</td><td>12.92</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="up">+3.09%</span></td><td>1</td><td></td><td><span class="up">+7.05%</span></td><td><span class="up">+1.84%</span></td><td><span class="up">+21.53%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH600183" target="_blank">600183</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH600183" target="_blank">生益科技</a></td><td>+4.8672</td><td>86.20</td><td>86.70</td><td>85.21</td><td>28.35</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="up">+1.47%</span></td><td>1</td><td></td><td><span class="up">+5.55%</span></td><td><span class="up">+5.54%</span></td><td><span class="up">+45.80%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH605111" target="_blank">605111</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH605111" target="_blank">新洁能</a></td><td>+0.4053</td><td>56.89</td><td>69.16</td><td>32.37</td><td>14.04</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-1.36%</span></td><td>1</td><td></td><td><span class="up">+2.79%</span></td><td><span class="down">-8.23%</span></td><td><span class="up">+20.16%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002056" target="_blank">002056</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002056" target="_blank">横店东磁</a></td><td>+1.5395</td><td>86.24</td><td>82.68</td><td>93.35</td><td>25.90</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+6.98%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+20.92%</span></td><td><span class="up">+9.08%</span></td><td><span class="up">+49.11%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH600593" target="_blank">600593</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH600593" target="_blank">大连圣亚</a></td><td>+0.8604</td><td>74.62</td><td>70.31</td><td>83.22</td><td>7.39</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-0.31%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+1.72%</span></td><td><span class="up">+6.64%</span></td><td><span class="up">+10.51%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300628" target="_blank">300628</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300628" target="_blank">亿联网络</a></td><td>+0.2991</td><td>68.13</td><td>56.99</td><td>90.41</td><td>5.07</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-1.30%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+1.63%</span></td><td><span class="up">+6.07%</span></td><td><span class="up">+7.40%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH600869" target="_blank">600869</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH600869" target="_blank">远东股份</a></td><td>+0.6982</td><td>82.58</td><td>74.52</td><td>98.72</td><td>20.22</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-1.49%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+15.32%</span></td><td><span class="up">+20.95%</span></td><td><span class="up">+26.19%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002815" target="_blank">002815</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002815" target="_blank">崇达技术</a></td><td>+0.2063</td><td>76.16</td><td>70.89</td><td>86.69</td><td>7.08</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+4.83%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+7.42%</span></td><td><span class="up">+4.46%</span></td><td><span class="up">+19.53%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH603005" target="_blank">603005</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH603005" target="_blank">晶方科技</a></td><td>+0.3588</td><td>55.52</td><td>57.89</td><td>50.77</td><td>11.49</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="up">+9.99%</span></td><td>1</td><td></td><td><span class="up">+18.16%</span></td><td><span class="down">-2.24%</span></td><td><span class="up">+23.56%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000921" target="_blank">000921</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000921" target="_blank">海信家电</a></td><td>+0.3805</td><td>81.23</td><td>73.72</td><td>96.25</td><td>7.52</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="flat">0.00%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+5.44%</span></td><td><span class="up">+10.26%</span></td><td><span class="up">+9.67%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002824" target="_blank">002824</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002824" target="_blank">和胜股份</a></td><td>+0.0549</td><td>66.56</td><td>52.54</td><td>94.59</td><td>1.75</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+9.28%</span></td><td>1</td><td></td><td><span class="up">+7.35%</span></td><td><span class="up">+14.09%</span></td><td><span class="up">+12.00%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH603890" target="_blank">603890</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH603890" target="_blank">春秋电子</a></td><td>+1.5748</td><td>83.27</td><td>83.20</td><td>83.41</td><td>30.64</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-6.29%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+7.59%</span></td><td><span class="up">+30.20%</span></td><td><span class="up">+40.61%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002484" target="_blank">002484</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002484" target="_blank">江海股份</a></td><td>+6.1497</td><td>94.04</td><td>92.43</td><td>97.28</td><td>47.50</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+10.00%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+21.73%</span></td><td><span class="up">+30.08%</span></td><td><span class="up">+74.23%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ000887" target="_blank">000887</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ000887" target="_blank">中鼎股份</a></td><td>+0.2290</td><td>65.09</td><td>72.78</td><td>49.71</td><td>6.29</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-0.39%</span></td><td>1</td><td></td><td><span class="down">-2.74%</span></td><td><span class="down">-3.43%</span></td><td><span class="up">+7.25%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ002422" target="_blank">002422</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ002422" target="_blank">科伦药业</a></td><td>+0.1287</td><td>34.19</td><td>54.25</td><td>-5.94</td><td>2.08</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="up">+0.98%</span></td><td>1</td><td></td><td><span class="down">-6.43%</span></td><td><span class="down">-3.26%</span></td><td><span class="up">+4.60%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH600101" target="_blank">600101</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH600101" target="_blank">明星电力</a></td><td>+0.1371</td><td>67.51</td><td>64.85</td><td>72.83</td><td>4.79</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="down">-2.33%</span></td><td><span style="font-weight:600;color:#58a6ff">2</span></td><td></td><td><span class="up">+0.38%</span></td><td><span class="up">+3.96%</span></td><td><span class="up">+10.19%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH688183" target="_blank">688183</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH688183" target="_blank">生益电子</a></td><td>+2.3048</td><td>65.89</td><td>70.95</td><td>55.77</td><td>12.16</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-0.30%</span></td><td>1</td><td></td><td><span class="up">+4.07%</span></td><td><span class="down">-8.03%</span></td><td><span class="up">+28.98%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SZ300726" target="_blank">300726</a></td><td><a class="name-link" href="https://xueqiu.com/S/SZ300726" target="_blank">宏达电子</a></td><td>+2.2512</td><td>73.35</td><td>61.89</td><td>96.26</td><td>19.93</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+20.00%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+32.85%</span></td><td><span class="up">+24.39%</span></td><td><span class="up">+40.46%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH600888" target="_blank">600888</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH600888" target="_blank">新疆众和</a></td><td>+0.1824</td><td>58.41</td><td>74.91</td><td>25.43</td><td>12.33</td><td>✓MACD买入 | ✓ZJTJ控盘</td><td><span class="down">-4.07%</span></td><td>1</td><td></td><td><span class="down">-8.21%</span></td><td><span class="down">-9.96%</span></td><td><span class="up">+15.80%</span></td></tr><tr><td><a class="code-link" href="https://xueqiu.com/S/SH603267" target="_blank">603267</a></td><td><a class="name-link" href="https://xueqiu.com/S/SH603267" target="_blank">鸿远电子</a></td><td>+3.5464</td><td>84.07</td><td>82.69</td><td>86.82</td><td>24.09</td><td>✓MACD买入 | ✓ZJTJ控盘 | ✓KDJ买入</td><td><span class="up">+5.20%</span></td><td><span style="font-weight:600;color:#58a6ff">3</span></td><td><span style="font-size:16px;">🌟</span></td><td><span class="up">+12.97%</span></td><td><span class="up">+15.77%</span></td><td><span class="up">+37.50%</span></td></tr></tbody></table>
+</div>
+    </div>
+    <div class="section-card">
+        <div class="section-header">
+            <h2>加分项分布（主选股）</h2>
+        </div>
+        <div class="rule-grid">
+            <div class="rule-item">
+                <div class="rlabel">KDJ + 财务</div>
+                <div class="rnum" style="color:#ffd700">0</div>
+                <div>2项加分</div>
+            </div>
+            <div class="rule-item">
+                <div class="rlabel">KDJ 或 财务</div>
+                <div class="rnum" style="color:#58a6ff">0</div>
+                <div>1项加分</div>
+            </div>
+            <div class="rule-item">
+                <div class="rlabel">仅核心条件</div>
+                <div class="rnum" style="color:#8b949e">5</div>
+                <div>0项加分</div>
+            </div>
+        </div>
+    </div>
+    <div class="report-footer">
+        <p>A股智能选股系统 &nbsp;|&nbsp; 报告生成时间：2026-06-05 07:59:31</p>
+        <p style="margin-top:4px;">数据来源：AKShare &nbsp;|&nbsp; 核心规则：MACD买入信号 + ZJTJ庄家控盘</p>
+    </div>
+
+</div>
+</body>
+</html>

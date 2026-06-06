@@ -1,0 +1,4 @@
+﻿来源,signal_count,stock_count,date_count,avg_return_2d,win_rate_2d,max_return_2d,min_return_2d,bench_2d,beat_bench_2d,avg_return_10d,win_rate_10d,max_return_10d,min_return_10d,bench_10d,beat_bench_10d,avg_return_30d,win_rate_30d,max_return_30d,min_return_30d,bench_30d,avg_return_60d,win_rate_60d,max_return_60d,min_return_60d,bench_60d,sl_tp_avg_return,sl_tp_win_rate,sl_tp_max_return,sl_tp_min_return,sl_tp_avg_hold_days,exit_reasons
+主选股,16,14,9,2.72,61.5,11.0,-4.99,-0.32,61.5,1.35,60.0,12.06,-17.22,-1.03,60.0,,,,,,,,,,,-2.09,25.0,11.51,-11.04,5.2,"{'STOP_LOSS': 12, 'OPEN': 4}"
+手工选股,16,14,9,2.72,61.5,11.0,-4.99,-0.32,61.5,1.35,60.0,12.06,-17.22,-1.03,60.0,,,,,,,,,,,-2.09,25.0,11.51,-11.04,5.2,"{'STOP_LOSS': 12, 'OPEN': 4}"
+龙头EBK,16,14,9,2.72,61.5,11.0,-4.99,-0.32,61.5,1.35,60.0,12.06,-17.22,-1.03,60.0,,,,,,,,,,,-2.09,25.0,11.51,-11.04,5.2,"{'STOP_LOSS': 12, 'OPEN': 4}"

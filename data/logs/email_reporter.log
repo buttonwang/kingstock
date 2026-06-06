@@ -1,0 +1,37 @@
+2026-06-02 20:56:32,072 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...
+2026-06-02 20:56:32,914 - email_reporter - INFO - 邮件发送成功
+2026-06-02 23:33:28,675 - email_reporter - INFO - 使用HTML报告作为邮件正文: D:\wwcode\stock\data\output\html\report_20260602.html
+2026-06-02 23:33:28,676 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...
+2026-06-02 23:33:29,982 - email_reporter - INFO - 邮件发送成功
+2026-06-02 23:41:58,620 - email_reporter - INFO - 使用HTML报告作为邮件正文: D:\wwcode\stock\data\output\html\report_20260602.html
+2026-06-02 23:41:58,621 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...
+2026-06-02 23:41:59,290 - email_reporter - INFO - 邮件发送成功
+2026-06-03 17:22:15,893 - email_reporter - INFO - 使用HTML报告作为邮件正文: d:\wwcode\stock\data\output\html\report_20260603.html
+2026-06-03 17:22:15,895 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...
+2026-06-03 17:22:16,871 - email_reporter - ERROR - 邮件发送失败 (SMTP): (554, b'DT:SPM 163 gzga-smtp-mtada-g1-0,_____wD3V8pL8h9qWKiDBA--.22310S2 1780478540,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-0&time=1780478540')
+2026-06-03 17:53:06,882 - email_reporter - INFO - 使用HTML报告作为邮件正文: D:\wwcode\stock\data\output\html\report_20260603.html
+2026-06-03 17:53:06,883 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...
+2026-06-03 17:53:08,378 - email_reporter - INFO - 邮件发送成功
+2026-06-05 07:59:32,327 - email_reporter - INFO - 使用HTML报告作为邮件正文: D:\wwcode\stock\data\output\html\report_20260604.html
+2026-06-05 07:59:32,329 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-05 07:59:33,774 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第1次: (554, b'DT:SPM 163 202.97.143.229,IP_POLICY_1;SND_POLICY_1; 1780617574,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzsmtp3&time=1780617574')
+2026-06-05 07:59:33,774 - email_reporter - INFO - 等待 3 秒后重试...
+2026-06-05 07:59:36,775 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第2次）
+2026-06-05 07:59:37,354 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第2次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-1,_____wD337NpESJqIT3gBQ--.8078S2 1780617578,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-1&time=1780617578')
+2026-06-05 07:59:37,355 - email_reporter - INFO - 等待 6 秒后重试...
+2026-06-05 07:59:43,355 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第3次）
+2026-06-05 07:59:44,370 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第3次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-3,_____wBXO8ZwESJqiYxQBQ--.2185S2 1780617585,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-3&time=1780617585')
+2026-06-05 07:59:44,371 - email_reporter - ERROR - 邮件发送已重试 2 次，全部失败
+2026-06-05 10:01:37,110 - email_reporter - INFO - 使用HTML报告作为邮件正文: D:\wwcode\stock\data\output\html\report_20260604.html
+2026-06-05 10:02:10,232 - email_reporter - INFO - 使用HTML报告作为邮件正文: D:\wwcode\stock\data\output\html\report_20260604.html
+2026-06-05 10:02:10,234 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-05 10:02:11,516 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第1次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-2,_____wCn7+0jLiJqYlEQBg--.57897S2 1780624932,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-2&time=1780624932')
+2026-06-05 10:02:11,516 - email_reporter - INFO - 等待 3 秒后重试...
+2026-06-05 10:02:14,517 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第2次）
+2026-06-05 10:02:15,090 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第2次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-0,_____wCHxG4nLiJqFZDOBQ--.62647S2 1780624936,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-0&time=1780624936')
+2026-06-05 10:02:15,091 - email_reporter - INFO - 等待 6 秒后重试...
+2026-06-05 10:02:21,091 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第3次）
+2026-06-05 10:02:21,952 - email_reporter - INFO - 邮件发送成功
+2026-06-05 17:21:18,827 - email_reporter - INFO - 使用HTML报告作为邮件正文: d:\wwcode\stock\data\output\html\report_20260605.html
+2026-06-05 17:21:18,830 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-05 17:21:20,195 - email_reporter - INFO - 邮件发送成功
