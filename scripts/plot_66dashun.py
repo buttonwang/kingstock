@@ -22,16 +22,23 @@ from src.portfolio_manager import simulate_pure_portfolio
 
 start_date, end_date = "20230601", "20260603"
 
-# ── 加载数据 ──
+# ── 加载数据（与run_ml_backtest保持一致，向前250天lookback确保指标预热） ──
 fetcher = DataFetcher()
-fmt_start = f"{start_date[:4]}-{start_date[4:6]}-{start_date[6:8]}"
-fmt_end = f"{end_date[:4]}-{end_date[4:6]}-{end_date[6:8]}"
+lookback = pd.Timestamp(start_date) - pd.Timedelta(days=250)
+lookfwd = pd.Timestamp(end_date) + pd.Timedelta(days=120)
+fmt_start = lookback.strftime("%Y-%m-%d")
+fmt_end = lookfwd.strftime("%Y-%m-%d")
 
-sec_df = fetcher._sql_to_df("SELECT date, sector_name, close FROM sector_daily WHERE date>=? AND date<=? ORDER BY date", params=(fmt_start, fmt_end))
+sec_df = fetcher._sql_to_df("SELECT DISTINCT sector_name, sector_type FROM sector_daily")
 sector_daily = {}
 for _, row in sec_df.iterrows():
-    sector_daily.setdefault(row["sector_name"], []).append({"date": row["date"], "close": row["close"]})
-sector_daily = {k: pd.DataFrame(v) for k, v in sector_daily.items()}
+    df = fetcher._sql_to_df(
+        "SELECT date, close, change_pct FROM sector_daily WHERE sector_name=? AND sector_type=? "
+        "AND date>=? AND date<=? ORDER BY date",
+        params=(row["sector_name"], row["sector_type"], fmt_start, fmt_end),
+    )
+    if not df.empty:
+        sector_daily[row["sector_name"]] = df
 
 cons_df = fetcher._sql_to_df("SELECT sector_name, code, name FROM sector_constituents")
 sector_constituents, stock_name_map = {}, {}
@@ -53,18 +60,25 @@ for code in all_codes:
     if not df.empty and len(df) >= 60:
         stock_daily[code] = df
 
-# 获取沪深300和中证800指数日线
-index_codes = {"000300.SH": "沪深300", "000906.SH": "中证800"}
-benchmark_data = {}
-for idx_code, idx_name in index_codes.items():
-    df = fetcher._sql_to_df(
-        "SELECT date, close FROM stock_daily WHERE code=? AND date>=? AND date<=? ORDER BY date",
-        params=(idx_code, fmt_start, fmt_end),
-    )
-    if not df.empty:
-        benchmark_data[idx_name] = df
-
 fetcher.close()
+
+# 从akshare获取沪深300和中证800指数数据
+import akshare as ak
+index_map = {"sh000300": "沪深300", "sh000906": "中证800"}
+benchmark_data = {}
+start_ts = pd.Timestamp(start_date)
+end_ts = pd.Timestamp(end_date)
+for symbol, name in index_map.items():
+    try:
+        df = ak.stock_zh_index_daily(symbol=symbol)
+        df["date"] = pd.to_datetime(df["date"])
+        df = df[(df["date"] >= start_ts) & (df["date"] <= end_ts)]
+        if not df.empty:
+            df = df.sort_values("date").reset_index(drop=True)
+            benchmark_data[name] = df
+            print(f"{name}: {len(df)} rows")
+    except Exception as e:
+        print(f"{name} error: {e}")
 
 # 交易日列表
 all_dates = set()
@@ -89,19 +103,28 @@ from config.settings import (
 )
 
 def check_weekly_trend(df):
+    """周线MACD多头确认（与run_ml_backtest保持一致）"""
     if df is None or len(df) < 60:
         return True
-    df_w = df.copy()
-    df_w["date"] = pd.to_datetime(df_w["date"])
-    df_w = df_w.set_index("date").resample("W-FRI").agg({
-        "open": "first", "high": "max", "low": "min", "close": "last", "volume": "sum",
+    df_copy = df.copy()
+    df_copy["date"] = pd.to_datetime(df_copy["date"])
+    weekly = df_copy.resample("W", on="date").agg({
+        "close": "last", "high": "max", "low": "min",
+        "open": "first", "volume": "sum",
     }).dropna()
-    if len(df_w) < 12:
+    if len(weekly) < 12:
         return True
-    dm = calculate_macd(df_w)
-    if dm is None or "macd" not in dm.columns or "dif" not in dm.columns or "dea" not in dm.columns:
-        return True
-    return dm["macd"].values[-1] > 0 and dm["dif"].values[-1] > dm["dea"].values[-1]
+    try:
+        macd_w = calculate_macd(weekly)
+        if macd_w is not None and len(macd_w) > 0:
+            last = macd_w.iloc[-1]
+            dif = last.get("dif", 0)
+            dea = last.get("dea", 0)
+            if pd.notna(dif) and pd.notna(dea):
+                return dif > dea
+    except Exception:
+        pass
+    return True
 
 ml_avail = ml_scorer.is_available()
 total_dates = len(trading_dates)
@@ -187,38 +210,61 @@ for di, date_str in enumerate(trading_dates):
             continue
         results.append({
             "date": date_str, "code": code, "name": stock_name_map.get(code, ""),
-            "score_ml": ml_val or 0, "market_state": market_state_str,
+            "score_ml": scores.get("score_ml", 0),  # 使用compute_total_score返回的round后整数值，与run_ml_backtest一致
+            "total_score": scores.get("total_score", 0),
+            "max_score": scores.get("max_score", 100),
+            "market_state": market_state_str,
         })
 
 df_result = pd.DataFrame(results)
 print(f"信号总数: {len(df_result)}")
+# 诊断: 信号质量统计
+if not df_result.empty:
+    print(f"  score_ml: mean={df_result['score_ml'].mean():.1f}, min={df_result['score_ml'].min():.1f}, max={df_result['score_ml'].max():.1f}")
+    print(f"  total_score: mean={df_result['total_score'].mean():.1f}, min={df_result['total_score'].min()}, max={df_result['total_score'].max()}")
+    print(f"  max_score: {df_result['max_score'].unique()}")
+    print(f"  market_state: {df_result['market_state'].value_counts().to_dict()}")
+    print(f"  ml_avail={ml_avail}, score_ml==0: {(df_result['score_ml']==0).sum()}")
+    df_result.to_csv("data/output/plot_signals_debug.csv", index=False, encoding="utf-8-sig")
 
-# ── 组合模拟（66大顺） ──
+# ── 组合模拟（V1.0纯信号模式：动态持有期，按ML评分分档） ──
 result = simulate_pure_portfolio(
-    df_result[["date", "code", "name", "score_ml"]],
+    df_result,
     stock_daily, trading_dates=trading_dates,
     dynamic_hold=True,
 )
 
-# ── 提取净值曲线 ──
-nav_series = result["daily_nav"]
+# ── 提取净值曲线（daily_nav是[{'date':..., 'nav':...}]列表） ──
+daily_nav_list = result["daily_nav"]
+initial_capital = 1_000_000.0
+raw_nav = [d["nav"] for d in daily_nav_list]
+# 归一化：原始nav是资金绝对值，需除以初始资金得到净值比
+nav_series = pd.Series(
+    [v / initial_capital for v in raw_nav],
+    index=pd.to_datetime(trading_dates),
+)
 print(f"净值曲线长度: {len(nav_series)}")
 print(f"最终净值: {nav_series.iloc[-1]:.4f}, 收益率: {result['total_return']:.2f}%")
 
-# ── 基准指数归一化 ──
+# ── 设置中文字体 ──
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
+plt.rcParams['axes.unicode_minus'] = False
+
+# ── 基准指数归一化（相对于回测起始日的涨跌幅） ──
 bench_norm = {}
 for name, df in benchmark_data.items():
-    dates = pd.to_datetime(df["date"])
+    dates = pd.to_datetime(df["date"]).dt.tz_localize(None)  # 确保无时区
     prices = df["close"].values.astype(float)
+    if len(prices) == 0:
+        continue
     base_price = prices[0]
-    norm = prices / base_price
-    ts = pd.Series(norm, index=dates)
+    norm_prices = prices / base_price  # 归一化为 1.0 起始
+    ts = pd.Series(norm_prices, index=dates)
     bench_norm[name] = ts
 
-# ── 将净值曲线对齐到相同日期索引 ──
-nav_idx = pd.to_datetime(nav_series.index if hasattr(nav_series.index, 'dtype') else nav_series.index)
-
 # ── 绘图 ──
+from matplotlib.dates import DateFormatter, MonthLocator
+
 fig, axes = plt.subplots(3, 1, figsize=(16, 14), sharex=True)
 fig.suptitle("66大顺 V1.0 纯信号策略回测曲线", fontsize=18, fontweight="bold")
 
@@ -227,12 +273,13 @@ ax1 = axes[0]
 ax1.plot(nav_series.index, (nav_series.values - 1) * 100, label="66大顺 V1.0", color="#FF6B35", linewidth=2)
 for name, ts in bench_norm.items():
     # 对齐到净值曲线的日期
-    common_dates = [d for d in nav_series.index if d in ts.index]
-    if common_dates:
-        vals = [ts[d] for d in common_dates]
-        base = ts[common_dates[0]]
-        ret = [(v / base - 1) * 100 for v in vals]
-        ax1.plot(common_dates, ret, label=name, linewidth=1.5, alpha=0.7)
+    nav_idx = nav_series.index.tz_localize(None) if nav_series.index.tz else nav_series.index
+    common = nav_idx.intersection(ts.index)
+    if len(common) > 0:
+        # 以第一个共同日期的价格为基准，计算相对涨跌幅
+        base_val = ts.loc[common[0]]
+        ret_vals = (ts.loc[common] / base_val - 1) * 100
+        ax1.plot(common, ret_vals.values, label=name, linewidth=1.5, alpha=0.8)
 ax1.axhline(y=0, color="gray", linewidth=0.5, linestyle="--")
 ax1.set_ylabel("累计收益率 (%)")
 ax1.legend(loc="upper left", fontsize=11)
@@ -266,7 +313,14 @@ ax3.legend(loc="upper left", fontsize=11)
 ax3.grid(True, alpha=0.3)
 ax3.set_title("滚动夏普比率 (63个交易日窗口)", fontsize=14, fontweight="bold")
 
+# 设置X轴刻度（所有子图共享X轴，在底部子图设置即可）
+ax3.xaxis.set_major_locator(MonthLocator(interval=2))  # 每2个月一个主刻度
+ax3.xaxis.set_minor_locator(MonthLocator())  # 每月一个次刻度
+ax3.xaxis.set_major_formatter(DateFormatter('%Y-%m'))
+plt.setp(ax3.xaxis.get_majorticklabels(), rotation=45, ha='right', fontsize=9)
+# 确保X轴标签不被裁切
 plt.tight_layout()
+fig.subplots_adjust(bottom=0.08)  # 确保X轴标签不被裁切
 output_path = os.path.join("data", "output", "66dashun_curve.png")
 plt.savefig(output_path, dpi=150, bbox_inches="tight")
 print(f"图表已保存: {output_path}")

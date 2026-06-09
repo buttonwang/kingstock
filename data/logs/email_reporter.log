@@ -35,3 +35,46 @@
 2026-06-05 17:21:18,827 - email_reporter - INFO - 使用HTML报告作为邮件正文: d:\wwcode\stock\data\output\html\report_20260605.html
 2026-06-05 17:21:18,830 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
 2026-06-05 17:21:20,195 - email_reporter - INFO - 邮件发送成功
+2026-06-06 17:00:14,956 - email_reporter - INFO - 使用HTML报告作为邮件正文: d:\wwcode\stock\data\output\html\report_20260605.html
+2026-06-06 17:00:14,959 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-06 17:00:16,614 - email_reporter - INFO - 邮件发送成功
+2026-06-07 17:00:18,377 - email_reporter - INFO - 使用HTML报告作为邮件正文: d:\wwcode\stock\data\output\html\report_20260605.html
+2026-06-07 17:00:18,380 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-07 17:00:20,503 - email_reporter - INFO - 邮件发送成功
+2026-06-08 16:16:19,671 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-08 16:16:20,439 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第1次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-4,_____wDX9zRUeiZq4gv0CA--.7615S2 1780906580,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-4&time=1780906580')
+2026-06-08 16:16:20,439 - email_reporter - INFO - 等待 3 秒后重试...
+2026-06-08 16:16:23,440 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第2次）
+2026-06-08 16:16:23,958 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第2次: (554, b'DT:SPM 163 gzsmtp5,QCgvCgAn9c9XeiZqFvJJBA--.22804S2 1780906584,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzsmtp5&time=1780906584')
+2026-06-08 16:16:23,958 - email_reporter - INFO - 等待 6 秒后重试...
+2026-06-08 16:16:29,959 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第3次）
+2026-06-08 16:16:30,408 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第3次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-4,_____wCXPwJeeiZqgBL0CA--.61424S2 1780906590,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-4&time=1780906590')
+2026-06-08 16:16:30,408 - email_reporter - ERROR - 邮件发送已重试 2 次，全部失败
+2026-06-08 16:16:30,409 - email_reporter - INFO - 快速重试全部失败，等待 15 分钟后延迟重试...
+2026-06-08 16:31:30,409 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（延迟重试）
+2026-06-08 16:31:31,175 - email_reporter - ERROR - 延迟重试也失败: (554, b'DT:SPM 163 gzga-smtp-mtada-g0-2,_____wDnd4XifSZq2ueRCA--.51807S2 1780907491,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g0-2&time=1780907491')
+2026-06-08 17:20:58,530 - email_reporter - INFO - 使用HTML报告作为邮件正文: d:\wwcode\stock\data\output\html\report_20260608.html
+2026-06-08 17:20:58,534 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-08 17:20:59,783 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第1次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-2,_____wDHT5t7iSZq8oCuCA--.54603S2 1780910460,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-2&time=1780910460')
+2026-06-08 17:20:59,784 - email_reporter - INFO - 等待 3 秒后重试...
+2026-06-08 17:21:02,784 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第2次）
+2026-06-08 17:21:03,409 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第2次: (554, b'DT:SPM 163 gzga-smtp-mtada-g0-1,_____wD3z_1_iSZqDUdkCA--.31024S2 1780910463,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g0-1&time=1780910463')
+2026-06-08 17:21:03,409 - email_reporter - INFO - 等待 6 秒后重试...
+2026-06-08 17:21:09,410 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第3次）
+2026-06-08 17:21:10,346 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第3次: (554, b'DT:SPM 163 gzga-smtp-mtada-g0-3,_____wDn7ReGiSZq5ly3CA--.51358S2 1780910470,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g0-3&time=1780910470')
+2026-06-08 17:21:10,346 - email_reporter - ERROR - 邮件发送已重试 2 次，全部失败
+2026-06-08 17:21:10,347 - email_reporter - INFO - 快速重试全部失败，等待 15 分钟后延迟重试...
+2026-06-08 17:36:10,347 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（延迟重试）
+2026-06-08 17:36:11,864 - email_reporter - ERROR - 延迟重试也失败: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-0,_____wCHwWsLjSZq9dhOCA--.16909S2 1780911372,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-0&time=1780911372')
+2026-06-09 03:17:32,431 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-09 03:17:33,084 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第1次: (554, b'DT:SPM 163 gzga-smtp-mtada-g0-2,_____wCH3H9OFSdqaWzmCA--.62872S2 1780946255,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g0-2&time=1780946255')
+2026-06-09 03:17:33,084 - email_reporter - INFO - 等待 3 秒后重试...
+2026-06-09 03:17:36,085 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第2次）
+2026-06-09 03:17:36,565 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第2次: (554, b'DT:SPM 163 gzga-smtp-mtada-g1-0,_____wDnHCtSFSdqIYOWCA--.13501S2 1780946258,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g1-0&time=1780946258')
+2026-06-09 03:17:36,566 - email_reporter - INFO - 等待 6 秒后重试...
+2026-06-09 03:17:42,567 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第3次）
+2026-06-09 03:17:43,135 - email_reporter - ERROR - 邮件发送失败 (SMTP) 第3次: (554, b'DT:SPM 163 gzsmtp2,PSgvCgAXvQFYFSdqBGBCBA--.17148S2 1780946265,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzsmtp2&time=1780946265')
+2026-06-09 03:17:43,135 - email_reporter - ERROR - 邮件发送已重试 2 次，全部失败
+2026-06-09 03:17:43,135 - email_reporter - INFO - 快速重试全部失败，等待 15 分钟后延迟重试...
+2026-06-09 03:32:43,136 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（延迟重试）
+2026-06-09 03:32:43,912 - email_reporter - ERROR - 延迟重试也失败: (554, b'DT:SPM 163 gzga-smtp-mtada-g0-4,_____wDXV5fdGCdq8lJBCQ--.8234S2 1780947165,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g0-4&time=1780947165')

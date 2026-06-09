@@ -1,0 +1,263 @@
+{
+  "cash": 468166.447966375,
+  "positions": {
+    "603212": {
+      "name": "赛伍技术",
+      "entry_date": "20260604",
+      "entry_price": 15.5934,
+      "shares": 5100,
+      "cost_basis": 79545.99,
+      "commission_buy": 19.88,
+      "signal_track": 0,
+      "score_ml": 11,
+      "hold_days_target": 5,
+      "held_days": 4,
+      "peak_price": 16.57,
+      "signal_date": "20260603",
+      "market_state": "strong",
+      "last_price": 16.57
+    },
+    "603661": {
+      "name": "恒林股份",
+      "entry_date": "20260604",
+      "entry_price": 33.7205,
+      "shares": 1400,
+      "cost_basis": 47220.51,
+      "commission_buy": 11.8,
+      "signal_track": 1,
+      "score_ml": 14,
+      "hold_days_target": 12,
+      "held_days": 4,
+      "peak_price": 36.41,
+      "signal_date": "20260603",
+      "market_state": "strong",
+      "last_price": 32.99
+    },
+    "688777": {
+      "name": "中控技术",
+      "entry_date": "20260604",
+      "entry_price": 91.1365,
+      "shares": 500,
+      "cost_basis": 45579.64,
+      "commission_buy": 11.39,
+      "signal_track": 1,
+      "score_ml": 14,
+      "hold_days_target": 12,
+      "held_days": 4,
+      "peak_price": 103.5,
+      "signal_date": "20260603",
+      "market_state": "strong",
+      "last_price": 103.5
+    },
+    "605589": {
+      "name": "圣泉集团",
+      "entry_date": "20260604",
+      "entry_price": 53.6203,
+      "shares": 900,
+      "cost_basis": 48270.34,
+      "commission_buy": 12.06,
+      "signal_track": 1,
+      "score_ml": 14,
+      "hold_days_target": 12,
+      "held_days": 4,
+      "peak_price": 54.4,
+      "signal_date": "20260603",
+      "market_state": "strong",
+      "last_price": 49.67
+    },
+    "301528": {
+      "name": "多浦乐",
+      "entry_date": "20260605",
+      "entry_price": 80.12,
+      "shares": 1000,
+      "cost_basis": 80140.03,
+      "commission_buy": 20.03,
+      "signal_track": 0,
+      "score_ml": 14,
+      "hold_days_target": 7,
+      "held_days": 3,
+      "peak_price": 91.75,
+      "signal_date": "20260604",
+      "market_state": "strong",
+      "last_price": 90.11
+    },
+    "301338": {
+      "name": "凯格精机",
+      "entry_date": "20260605",
+      "entry_price": 246.5493,
+      "shares": 200,
+      "cost_basis": 49322.18,
+      "commission_buy": 12.33,
+      "signal_track": 1,
+      "score_ml": 14,
+      "hold_days_target": 12,
+      "held_days": 3,
+      "peak_price": 258.03,
+      "signal_date": "20260604",
+      "market_state": "strong",
+      "last_price": 235.0
+    },
+    "002046": {
+      "name": "国机精工",
+      "entry_date": "20260605",
+      "entry_price": 56.8151,
+      "shares": 800,
+      "cost_basis": 45463.44,
+      "commission_buy": 11.36,
+      "signal_track": 1,
+      "score_ml": 14,
+      "hold_days_target": 12,
+      "held_days": 3,
+      "peak_price": 60.37,
+      "signal_date": "20260604",
+      "market_state": "strong",
+      "last_price": 60.37
+    },
+    "600105": {
+      "name": "永鼎股份",
+      "entry_date": "20260605",
+      "entry_price": 54.1812,
+      "shares": 1500,
+      "cost_basis": 81292.04,
+      "commission_buy": 20.32,
+      "signal_track": 0,
+      "score_ml": 10,
+      "hold_days_target": 3,
+      "held_days": 2,
+      "peak_price": 55.42,
+      "signal_date": "20260605",
+      "market_state": "strong",
+      "last_price": 53.0
+    },
+    "601137": {
+      "name": "XD博威合",
+      "entry_date": "20260605",
+      "entry_price": 23.0445,
+      "shares": 2200,
+      "cost_basis": 50710.61,
+      "commission_buy": 12.67,
+      "signal_track": 1,
+      "score_ml": 14,
+      "hold_days_target": 12,
+      "held_days": 2,
+      "peak_price": 24.78,
+      "signal_date": "20260605",
+      "market_state": "strong",
+      "last_price": 23.44
+    }
+  },
+  "pending_orders": [
+    {
+      "code": "300328",
+      "name": "宜安科技",
+      "signal_date": "20260608",
+      "signal_track": 0,
+      "score_ml": 13,
+      "market_state": "strong",
+      "mult": 1.0
+    },
+    {
+      "code": "600522",
+      "name": "中天科技",
+      "signal_date": "20260608",
+      "signal_track": 0,
+      "score_ml": 10,
+      "market_state": "strong",
+      "mult": 1.0
+    },
+    {
+      "code": "300666",
+      "name": "江丰电子",
+      "signal_date": "20260608",
+      "signal_track": 1,
+      "score_ml": 14,
+      "market_state": "strong",
+      "mult": 1.0
+    },
+    {
+      "code": "002916",
+      "name": "深南电路",
+      "signal_date": "20260608",
+      "signal_track": 1,
+      "score_ml": 14,
+      "market_state": "strong",
+      "mult": 1.0
+    },
+    {
+      "code": "002156",
+      "name": "通富微电",
+      "signal_date": "20260608",
+      "signal_track": 1,
+      "score_ml": 14,
+      "market_state": "strong",
+      "mult": 1.0
+    }
+  ],
+  "trade_history": [
+    {
+      "code": "600667",
+      "name": "太极实业",
+      "signal_date": "20260604",
+      "entry_date": "20260605",
+      "exit_date": "20260608",
+      "entry_price": 16.3245,
+      "exit_price": 14.9176,
+      "shares": 3000,
+      "signal_track": 1,
+      "score_ml": 14,
+      "return_pct": -8.62,
+      "pnl": -4288.76,
+      "exit_reason": "B_HARD_STOP",
+      "held_days": 3,
+      "commission_buy": 12.24,
+      "commission_sell": 11.19,
+      "stamp_duty": 44.75,
+      "total_cost": 68.18
+    }
+  ],
+  "daily_nav": [
+    {
+      "date": "20260603",
+      "cash": 1000000,
+      "positions_value": 0,
+      "total_value": 1000000,
+      "nav": 1.0,
+      "positions_count": 0
+    },
+    {
+      "date": "20260604",
+      "cash": 779383.51,
+      "positions_value": 224826.0,
+      "total_value": 1004209.51,
+      "nav": 1.0042,
+      "positions_count": 4
+    },
+    {
+      "date": "20260605",
+      "cash": 555472.27,
+      "positions_value": 462629.0,
+      "total_value": 1018101.27,
+      "nav": 1.0181,
+      "positions_count": 8
+    },
+    {
+      "date": "20260605",
+      "cash": 423469.62,
+      "positions_value": 600275.0,
+      "total_value": 1023744.62,
+      "nav": 1.0237,
+      "positions_count": 10
+    },
+    {
+      "date": "20260608",
+      "cash": 468166.45,
+      "positions_value": 543620.0,
+      "total_value": 1011786.45,
+      "nav": 1.0118,
+      "positions_count": 9
+    }
+  ],
+  "created_at": "2026-06-08",
+  "last_update": "20260608",
+  "start_date": "20260603"
+}

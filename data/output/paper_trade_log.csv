@@ -1,0 +1,2 @@
+﻿code,name,signal_date,entry_date,exit_date,entry_price,exit_price,shares,signal_track,score_ml,return_pct,pnl,exit_reason,held_days,commission_buy,commission_sell,stamp_duty,total_cost
+600667,太极实业,20260604,20260605,20260608,16.3245,14.9176,3000,1,14,-8.62,-4288.76,B_HARD_STOP,3,12.24,11.19,44.75,68.18

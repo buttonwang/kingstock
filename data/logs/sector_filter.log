@@ -471,3 +471,36 @@
 2026-06-05 17:00:24,451 - sector_filter - INFO - 成功获取 375 个(concept)板块的行情数据
 2026-06-05 17:00:24,490 - sector_filter - INFO - RPS排名前 20 板块 (concept): ['先进封装', '培育钻石', '大飞机', 'PCB概念', '科创次新股', '共封装光学(CPO)', '成飞概念', 'MiniLED', '同花顺果指数', '超导概念']
 2026-06-05 17:00:24,506 - sector_filter - INFO - 板块RPS筛选完成(concept): 前20板块共包含 124 只股票
+2026-06-06 17:00:08,057 - sector_filter - INFO - 板块行情获取进度(concept): 50/375
+2026-06-06 17:00:08,090 - sector_filter - INFO - 板块行情获取进度(concept): 100/375
+2026-06-06 17:00:08,125 - sector_filter - INFO - 板块行情获取进度(concept): 150/375
+2026-06-06 17:00:08,158 - sector_filter - INFO - 板块行情获取进度(concept): 200/375
+2026-06-06 17:00:08,191 - sector_filter - INFO - 板块行情获取进度(concept): 250/375
+2026-06-06 17:00:08,222 - sector_filter - INFO - 板块行情获取进度(concept): 300/375
+2026-06-06 17:00:08,254 - sector_filter - INFO - 板块行情获取进度(concept): 350/375
+2026-06-06 17:00:08,269 - sector_filter - INFO - 板块行情获取进度(concept): 375/375
+2026-06-06 17:00:08,269 - sector_filter - INFO - 成功获取 375 个(concept)板块的行情数据
+2026-06-06 17:00:08,310 - sector_filter - INFO - RPS排名前 20 板块 (concept): ['先进封装', '培育钻石', '大飞机', 'PCB概念', '科创次新股', '共封装光学(CPO)', '成飞概念', 'MiniLED', '同花顺果指数', '超导概念']
+2026-06-06 17:00:08,323 - sector_filter - INFO - 板块RPS筛选完成(concept): 前20板块共包含 124 只股票
+2026-06-07 17:00:11,051 - sector_filter - INFO - 板块行情获取进度(concept): 50/375
+2026-06-07 17:00:11,084 - sector_filter - INFO - 板块行情获取进度(concept): 100/375
+2026-06-07 17:00:11,116 - sector_filter - INFO - 板块行情获取进度(concept): 150/375
+2026-06-07 17:00:11,150 - sector_filter - INFO - 板块行情获取进度(concept): 200/375
+2026-06-07 17:00:11,183 - sector_filter - INFO - 板块行情获取进度(concept): 250/375
+2026-06-07 17:00:11,213 - sector_filter - INFO - 板块行情获取进度(concept): 300/375
+2026-06-07 17:00:11,244 - sector_filter - INFO - 板块行情获取进度(concept): 350/375
+2026-06-07 17:00:11,259 - sector_filter - INFO - 板块行情获取进度(concept): 375/375
+2026-06-07 17:00:11,259 - sector_filter - INFO - 成功获取 375 个(concept)板块的行情数据
+2026-06-07 17:00:11,296 - sector_filter - INFO - RPS排名前 20 板块 (concept): ['先进封装', '培育钻石', '大飞机', 'PCB概念', '科创次新股', '共封装光学(CPO)', '成飞概念', 'MiniLED', '同花顺果指数', '超导概念']
+2026-06-07 17:00:11,321 - sector_filter - INFO - 板块RPS筛选完成(concept): 前20板块共包含 124 只股票
+2026-06-08 17:00:11,572 - sector_filter - INFO - 板块行情获取进度(concept): 50/375
+2026-06-08 17:00:11,614 - sector_filter - INFO - 板块行情获取进度(concept): 100/375
+2026-06-08 17:00:11,652 - sector_filter - INFO - 板块行情获取进度(concept): 150/375
+2026-06-08 17:00:11,689 - sector_filter - INFO - 板块行情获取进度(concept): 200/375
+2026-06-08 17:00:11,726 - sector_filter - INFO - 板块行情获取进度(concept): 250/375
+2026-06-08 17:00:11,762 - sector_filter - INFO - 板块行情获取进度(concept): 300/375
+2026-06-08 17:00:11,800 - sector_filter - INFO - 板块行情获取进度(concept): 350/375
+2026-06-08 17:00:11,818 - sector_filter - INFO - 板块行情获取进度(concept): 375/375
+2026-06-08 17:00:11,818 - sector_filter - INFO - 成功获取 375 个(concept)板块的行情数据
+2026-06-08 17:00:11,870 - sector_filter - INFO - RPS排名前 20 板块 (concept): ['先进封装', '培育钻石', '大飞机', 'PCB概念', '科创次新股', '共封装光学(CPO)', '成飞概念', 'MiniLED', '同花顺果指数', '超导概念']
+2026-06-08 17:00:11,885 - sector_filter - INFO - 板块RPS筛选完成(concept): 前20板块共包含 124 只股票

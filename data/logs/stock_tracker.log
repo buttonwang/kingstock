@@ -47,3 +47,18 @@
 2026-06-05 17:21:17,841 - stock_tracker - INFO - 计算了 516 只股票的涨跌幅和连续天数
 2026-06-05 17:21:17,859 - stock_tracker - INFO - HTML报告已保存到数据库: 2026-06-05
 2026-06-05 17:21:17,859 - stock_tracker - INFO - StockTracker 数据库连接已关闭
+2026-06-06 17:00:13,715 - stock_tracker - INFO - StockTracker 初始化完成，数据库: d:\wwcode\stock\data\db\stock.db
+2026-06-06 17:00:13,716 - stock_tracker - INFO - 已记录 0 条选股结果至历史表（共 49 条）
+2026-06-06 17:00:14,136 - stock_tracker - INFO - 计算了 516 只股票的涨跌幅和连续天数
+2026-06-06 17:00:14,166 - stock_tracker - INFO - HTML报告已保存到数据库: 2026-06-05
+2026-06-06 17:00:14,166 - stock_tracker - INFO - StockTracker 数据库连接已关闭
+2026-06-07 17:00:17,111 - stock_tracker - INFO - StockTracker 初始化完成，数据库: d:\wwcode\stock\data\db\stock.db
+2026-06-07 17:00:17,113 - stock_tracker - INFO - 已记录 0 条选股结果至历史表（共 49 条）
+2026-06-07 17:00:17,542 - stock_tracker - INFO - 计算了 516 只股票的涨跌幅和连续天数
+2026-06-07 17:00:17,561 - stock_tracker - INFO - HTML报告已保存到数据库: 2026-06-05
+2026-06-07 17:00:17,561 - stock_tracker - INFO - StockTracker 数据库连接已关闭
+2026-06-08 17:20:57,128 - stock_tracker - INFO - StockTracker 初始化完成，数据库: d:\wwcode\stock\data\db\stock.db
+2026-06-08 17:20:57,144 - stock_tracker - INFO - 已记录 45 条选股结果至历史表（共 45 条）
+2026-06-08 17:20:57,749 - stock_tracker - INFO - 计算了 514 只股票的涨跌幅和连续天数
+2026-06-08 17:20:57,770 - stock_tracker - INFO - HTML报告已保存到数据库: 2026-06-08
+2026-06-08 17:20:57,771 - stock_tracker - INFO - StockTracker 数据库连接已关闭

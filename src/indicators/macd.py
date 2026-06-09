@@ -72,6 +72,42 @@ def is_macd_buy_signal(df: pd.DataFrame) -> bool:
     return cond1 or cond2
 
 
+def is_macd_continuation_signal(df: pd.DataFrame) -> bool:
+    """MACD延续金叉信号：DIF>DEA(已金叉保持) + DIF>0 + MACD柱为正 + DIF环比上升
+
+    捕捉场景：股票早已金叉、保持多头排列、回调企稳后继续上行。
+    与is_macd_buy_signal的区别：
+    - is_macd_buy_signal: 捕捉当天金叉(cond1)或MACD柱由绿转红(cond2)
+    - is_macd_continuation_signal: 捕捉已金叉且持续走强的信号(cond3)
+    """
+    if len(df) < 2:
+        return False
+
+    if 'dif' not in df.columns or 'dea' not in df.columns or 'macd' not in df.columns:
+        df = calculate_macd(df)
+
+    today = df.iloc[-1]
+    yesterday = df.iloc[-2]
+
+    if pd.isna(today['dif']) or pd.isna(today['dea']) or pd.isna(today['macd']):
+        return False
+    if pd.isna(yesterday['dif']) or pd.isna(yesterday['dea']):
+        return False
+
+    # 延续金叉条件：
+    # 1. DIF > DEA（已金叉保持）
+    # 2. DIF > 0（多头方向）
+    # 3. MACD柱为正（动能向上）
+    # 4. DIF环比上升（仍在走强）
+    # 5. 昨天DIF也>DEA（排除当天金叉，由is_macd_buy_signal处理）
+    return (today['dif'] > today['dea']
+            and today['dif'] > 0
+            and today['macd'] > 0
+            and today['dif'] > yesterday['dif']
+            and yesterday['dif'] > yesterday['dea']
+            and not yesterday['macd'] < 0)  # 同时排除MACD柱刚翻红(cond2)
+
+
 def is_macd_bullish(df: pd.DataFrame) -> bool:
     """判断最新一天是否处于MACD多头趋势状态（宽松条件）
 
