@@ -78,3 +78,6 @@
 2026-06-09 03:17:43,135 - email_reporter - INFO - 快速重试全部失败，等待 15 分钟后延迟重试...
 2026-06-09 03:32:43,136 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（延迟重试）
 2026-06-09 03:32:43,912 - email_reporter - ERROR - 延迟重试也失败: (554, b'DT:SPM 163 gzga-smtp-mtada-g0-4,_____wDXV5fdGCdq8lJBCQ--.8234S2 1780947165,please see http://u.163.com/S8nStmcXQ?ip=202.97.143.229&hostid=gzga-smtp-mtada-g0-4&time=1780947165')
+2026-06-09 17:32:01,077 - email_reporter - INFO - 使用HTML报告作为邮件正文: d:\wwcode\stock\data\output\html\report_20260609.html
+2026-06-09 17:32:01,080 - email_reporter - INFO - 正在发送邮件到 buttonww@163.com, 18235156686@163.com ...（第1次）
+2026-06-09 17:32:02,409 - email_reporter - INFO - 邮件发送成功

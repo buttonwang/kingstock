@@ -504,3 +504,14 @@
 2026-06-08 17:00:11,818 - sector_filter - INFO - 成功获取 375 个(concept)板块的行情数据
 2026-06-08 17:00:11,870 - sector_filter - INFO - RPS排名前 20 板块 (concept): ['先进封装', '培育钻石', '大飞机', 'PCB概念', '科创次新股', '共封装光学(CPO)', '成飞概念', 'MiniLED', '同花顺果指数', '超导概念']
 2026-06-08 17:00:11,885 - sector_filter - INFO - 板块RPS筛选完成(concept): 前20板块共包含 124 只股票
+2026-06-09 17:03:36,809 - sector_filter - INFO - 板块行情获取进度(concept): 50/373
+2026-06-09 17:03:36,898 - sector_filter - INFO - 板块行情获取进度(concept): 100/373
+2026-06-09 17:03:36,984 - sector_filter - INFO - 板块行情获取进度(concept): 150/373
+2026-06-09 17:03:37,069 - sector_filter - INFO - 板块行情获取进度(concept): 200/373
+2026-06-09 17:03:37,153 - sector_filter - INFO - 板块行情获取进度(concept): 250/373
+2026-06-09 17:03:37,245 - sector_filter - INFO - 板块行情获取进度(concept): 300/373
+2026-06-09 17:03:37,330 - sector_filter - INFO - 板块行情获取进度(concept): 350/373
+2026-06-09 17:03:37,367 - sector_filter - INFO - 板块行情获取进度(concept): 373/373
+2026-06-09 17:03:37,367 - sector_filter - INFO - 成功获取 373 个(concept)板块的行情数据
+2026-06-09 17:03:37,417 - sector_filter - INFO - RPS排名前 20 板块 (concept): ['存储芯片', '国家大基金持股', '第三代半导体', '超级电容', 'AI PC', 'BC电池', '超导概念', '抽水蓄能', '超超临界发电', '宁德时代概念']
+2026-06-09 17:03:37,435 - sector_filter - INFO - 板块RPS筛选完成(concept): 前20板块共包含 122 只股票
